@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -15,6 +16,7 @@ namespace KeyboardMaster
     /// </summary>
     public partial class App : System.Windows.Application
     {
+        public static Cookie AuthCookie;
         highlightingKeys highlightingKeys = new highlightingKeys();
         private void Application_Startup(object sender, StartupEventArgs e)
         {

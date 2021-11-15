@@ -1,6 +1,7 @@
 ﻿namespace KeyboardMaster_Server.Models
 {
-    public class CorePerfomance
+    public class nCorePerfomance
     {
+
     }
 }

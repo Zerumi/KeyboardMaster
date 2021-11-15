@@ -11,7 +11,7 @@ namespace KeyboardMaster_Server.Hubs
     {
         List<Score> scores = new List<Score>();
 
-        public async Task SendScore(Score score)
+        public async Task SubmitScore(Score score)
         {
             scores.Add(score);
             await Clients.All.SendAsync("NewScore", score);

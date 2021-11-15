@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace KeyboardMaster_Server.Models
+namespace KeyboardMaster
 {
-    public class Score
+    internal class Score
     {
         public string Name { get; set; }
         public DateTime Timestamp { get; set; }

@@ -30,20 +30,22 @@ namespace KeyboardMaster
         public string sWords = string.Empty;
 
         DispatcherTimer timer = new DispatcherTimer();
+        DispatcherTimer TimeTimer = new DispatcherTimer();
 
         public MainWindow()
         {
             InitializeComponent();
+            lWelcome.Content = $"Загрузка...";
             SetupDictonaty(ConfigurationRequest.GetDictonary());
             SetupTextBoxes();
             SetupTimer();
-            _ = tInput.Focus();
             //Путь к гиф
             media.Source = new Uri(Environment.CurrentDirectory + "\\d1.gif");
             //Метод инициализации таймера
             Loading();
             charsPerMinute charsPerMinute = new charsPerMinute();
             charsPerMinute.Activate();
+            _ = tInput.Focus();
         }
 
         #region Dictonary & TextBoxes
@@ -57,6 +59,8 @@ namespace KeyboardMaster
             gTextInput.Visibility = Visibility.Visible;
             gTextPerfomance.Visibility = Visibility.Visible;
             Menu.Visibility = Visibility.Visible;
+            lWelcome.Visibility = Visibility.Visible;
+            lTime.Visibility = Visibility.Visible;
 
             //Останавливаем таймер
             timer1.Stop();
@@ -127,6 +131,16 @@ namespace KeyboardMaster
             lTimer.Content = ConfigurationRequest.GetTime();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
+
+
+            TimeTimer.Tick += TimeTimerTick;
+            TimeTimer.Interval = new TimeSpan(0, 0, 1);
+            TimeTimer.Start();
+        }
+
+        private void TimeTimerTick(object sender, EventArgs e)
+        {
+            lTime.Content = DateTime.Now.ToString();
         }
 
         private async void Timer_Tick(object sender, EventArgs e)
@@ -188,7 +202,7 @@ namespace KeyboardMaster
         {
             try
             {
-                if (!isTimerStarted)
+                if (!isTimerStarted) // starts new test
                 {
                     tbWrittenWords.Document.Blocks.Clear();
                     timer.Start();
@@ -310,5 +324,12 @@ namespace KeyboardMaster
             }
         }
         #endregion
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            lWelcome.Content = $"Подключаемся к серверу...";
+            _ = Network.AuthUser(Environment.UserName, out App.AuthCookie);
+            lWelcome.Content = $"{Parser.GetWelcomeLabel(Parser.GetTimeDescription(DateTime.Now))}, {Environment.UserName}!";
+        }
     }
 }
