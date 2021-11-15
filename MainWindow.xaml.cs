@@ -42,6 +42,8 @@ namespace KeyboardMaster
             media.Source = new Uri(Environment.CurrentDirectory + "\\d1.gif");
             //Метод инициализации таймера
             Loading();
+            charsPerMinute charsPerMinute = new charsPerMinute();
+            charsPerMinute.Activate();
         }
 
         #region Dictonary & TextBoxes

@@ -15,6 +15,7 @@ namespace KeyboardMaster
     /// </summary>
     public partial class App : System.Windows.Application
     {
+        highlightingKeys highlightingKeys = new highlightingKeys();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             if (m_globalHook == null)//Оформляем событие по вытягиванию нажатых клавиш
@@ -23,17 +24,15 @@ namespace KeyboardMaster
                 m_globalHook.KeyDown += GlobalHookKeyDown;
                 m_globalHook.KeyUp += GlobalHookKeyUp;
             }
-            
         }
         private IKeyboardMouseEvents m_globalHook;
         private void GlobalHookKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)//Обработчик собыьтия по вытягиванию нажатых клавиш
         {
-            highlightingKeys highlightingKeys = new highlightingKeys();
+            charsPerMinute.chars.Add( e.KeyData.ToString());
             highlightingKeys.keyPressed(e.KeyData.ToString());
         }
         private void GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)//Обработчик собыьтия по вытягиванию нажатых клавиш
         {
-            highlightingKeys highlightingKeys = new highlightingKeys();
             highlightingKeys.keyUpped(e.KeyData.ToString());
         }
 
