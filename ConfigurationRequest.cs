@@ -10,15 +10,12 @@ namespace KeyboardMaster
         internal static IDictonary GetDictonary()
         {
             StaticVariables.LanguageDictonary = (LanguageDictonary)Enum.Parse(typeof(LanguageDictonary), GetValueByKey("Lang"));
-            switch (StaticVariables.LanguageDictonary)
+            return StaticVariables.LanguageDictonary switch
             {
-                case LanguageDictonary.RU:
-                    return new RuDictonary();
-                case LanguageDictonary.EN:
-                    return new EnDictonary();
-                default:
-                    throw new ArgumentException("В конфигурации обнаружено неожиданное значение");
-            }
+                LanguageDictonary.RU => new RuDictonary(),
+                LanguageDictonary.EN => new EnDictonary(),
+                _ => throw new ArgumentException("В конфигурации обнаружено неожиданное значение"),
+            };
         }
 
         private static void WriteValueByKey(string key, string value)
