@@ -308,7 +308,7 @@
             <MenuItem x:Name="mInfo" Header="Info"/>
         </Menu>
 
-        <Label x:Name="lWelcome" Visibility="Hidden" Content="Loading..." Grid.Column="1" HorizontalContentAlignment="Right" FontSize="10" VerticalAlignment="Center" Margin="4,0,90,0"/>
-        <Label x:Name="lTime" Visibility="Hidden" Content="01/01/2021 12:59" Grid.Column="1" HorizontalContentAlignment="Left" FontSize="10" VerticalAlignment="Center" Margin="287,0,-3,0"/>
+        <Label x:Name="lWelcome" Visibility="Hidden" Content="Loading..." Grid.Column="1" HorizontalContentAlignment="Right" FontSize="10" VerticalAlignment="Center" Margin="4,0,120,0"/>
+        <Label x:Name="lTime" Visibility="Hidden" Content="01/01/2021 12:59" Grid.Column="1" HorizontalContentAlignment="Left" FontSize="10" VerticalAlignment="Center" Margin="262,0,7,0"/>
     </Grid>
 </Window>
