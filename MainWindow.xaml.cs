@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -91,9 +92,17 @@ namespace KeyboardMaster
             {
                 if (mins-- == 0)
                 {
+                    await Dispatcher.BeginInvoke(new Action(() =>
+                    {
+                        timer.Stop();
+                        tInput.IsEnabled = false;
+                        tbWrittenWords.Document.Blocks.Clear();
+                        SetupDictonaty(ConfigurationRequest.GetDictonary());
+                        Network.SubmitScore();
+                        lTimer.Content = ConfigurationRequest.GetTime();
+                        tInput.IsEnabled = true;
+                    }));
                     isTimerStarted = false;
-                    timer.Stop();
-                    gTextPerfomance.Focus();
                     return;
                 }
                 secs = 60;
@@ -122,6 +131,7 @@ namespace KeyboardMaster
             {
                 if (!isTimerStarted)
                 {
+                    // tbWrittenWords.Document.Blocks.Clear(); // fix
                     timer.Start();
                     isTimerStarted = true;
                 }
