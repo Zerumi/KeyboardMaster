@@ -8,14 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="KeyboardMaster-Server\**" />
     <Compile Remove="m3md2\**" />
+    <EmbeddedResource Remove="KeyboardMaster-Server\**" />
     <EmbeddedResource Remove="m3md2\**" />
+    <None Remove="KeyboardMaster-Server\**" />
     <None Remove="m3md2\**" />
+    <Page Remove="KeyboardMaster-Server\**" />
     <Page Remove="m3md2\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.0" />
     <PackageReference Include="MouseKeyHook" Version="5.6.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
