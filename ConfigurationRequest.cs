@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using m3md2;
 
@@ -31,6 +32,11 @@ namespace KeyboardMaster
         private static string GetValueByKey(string key)
         {
             return ConfigurationManager.AppSettings.Get(key);
+        }
+
+        internal static string GetTime()
+        {
+            return GetValueByKey("Time");
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using m3md2;
 
 namespace KeyboardMaster
@@ -27,11 +28,14 @@ namespace KeyboardMaster
         public readonly Paragraph WrittenWordsParagraph = new();
         public string sWords = string.Empty;
 
+        DispatcherTimer timer = new DispatcherTimer();
+
         public MainWindow()
         {
             InitializeComponent();
             SetupDictonaty(ConfigurationRequest.GetDictonary());
             SetupTextBoxes();
+            SetupTimer();
             _ = tInput.Focus();
         }
 
@@ -71,6 +75,35 @@ namespace KeyboardMaster
             textRange2.ApplyPropertyValue(FontWeightProperty, FontWeights.Bold);
         }
 
+        private void SetupTimer()
+        {
+            lTimer.Content = ConfigurationRequest.GetTime();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += Timer_Tick;
+        }
+
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            string time = Convert.ToString(lTimer.Content);
+            int mins = int.Parse(time.Substring(0, time.IndexOf(':')));
+            int secs = int.Parse(time.Substring(time.IndexOf(':') + 1));
+            if (secs == 0)
+            {
+                if (mins-- == 0)
+                {
+                    isTimerStarted = false;
+                    timer.Stop();
+                    gTextPerfomance.Focus();
+                    return;
+                }
+                secs = 60;
+            }
+            await Dispatcher.BeginInvoke(new Action(() =>
+            {
+                lTimer.Content = $"{mins}:{--secs}";
+            }));
+        }
+
         private int rightindex = 0;
         private string OldText = string.Empty;
         private void tInput_GotFocus(object sender, RoutedEventArgs e)
@@ -81,11 +114,17 @@ namespace KeyboardMaster
         private bool isFromNewWord = false;
         private bool isIdealWord = true;
         private string currentword = string.Empty;
+        private bool isTimerStarted = false;
 
         private void tInput_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
+                if (!isTimerStarted)
+                {
+                    timer.Start();
+                    isTimerStarted = true;
+                }
                 if (isFromNewWord)
                 {
                     isFromNewWord = false;
