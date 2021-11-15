@@ -38,8 +38,49 @@ namespace KeyboardMaster
             SetupTextBoxes();
             SetupTimer();
             _ = tInput.Focus();
+            //Путь к гиф
+            media.Source = new Uri(Environment.CurrentDirectory + "\\d1.gif");
+            //Метод инициализации таймера
+            Loading();
         }
 
+        DispatcherTimer timer1 = new DispatcherTimer();
+        DispatcherTimer timer2 = new DispatcherTimer();
+        private void timer_tick(object sender, EventArgs e)
+        {
+            //Отображаем клавиатуру
+            gKeyboard.Visibility = Visibility.Visible;
+            gCorePerfomance.Visibility = Visibility.Visible;
+            gTextInput.Visibility = Visibility.Visible;
+            gTextPerfomance.Visibility = Visibility.Visible;
+            Menu.Visibility = Visibility.Visible;
+
+            //Останавливаем таймер
+            timer1.Stop();
+            //Скрываем гиф
+            media.Visibility = Visibility.Hidden;
+            //Скрываем название проекта
+            loadLabel.Visibility = Visibility.Hidden;
+        }
+        private void timer_tick2(object sender, EventArgs e)
+        {
+            loadLabel.Visibility = Visibility.Visible;
+            timer2.Stop();
+        }
+        void Loading()
+        {
+            timer1.Tick += timer_tick;
+
+            timer1.Interval = new TimeSpan(0, 0, 0, 4, 800);
+
+            timer1.Start();
+
+            timer2.Tick += timer_tick2;
+
+            timer2.Interval = new TimeSpan(0, 0, 0, 2, 0);
+
+            timer2.Start();
+        }
         private void SetupDictonaty(IDictonary dictonary)
         {
             Random random = new(unchecked((int)DateTime.Now.Ticks));
