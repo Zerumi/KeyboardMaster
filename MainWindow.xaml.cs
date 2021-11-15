@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using m3md2;
 
 namespace KeyboardMaster
 {
@@ -23,6 +24,30 @@ namespace KeyboardMaster
         public MainWindow()
         {
             InitializeComponent();
+            SetupDictonaty(ConfigurationRequest.GetDictonary());
+        }
+
+        private void SetupDictonaty(IDictonary dictonary)
+        {
+            Random random = new Random(unchecked((Int32)DateTime.Now.Ticks));
+
+            List<int> indexes = new List<int>();
+
+            for (int i = 0; i < dictonary.Words.Length; i++)
+            {
+                indexes.Add(i);
+            }
+
+            for (int i = 0; i < dictonary.Words.Length; i++)
+            {
+                int index = random.Next(dictonary.Words.Length);
+                while (!indexes.Contains(index))
+                {
+                    index = random.Next(dictonary.Words.Length);
+                }
+                indexes.Remove(index);
+                tbWords.Text += $"{dictonary.Words[index]}, ";
+            }
         }
     }
 }

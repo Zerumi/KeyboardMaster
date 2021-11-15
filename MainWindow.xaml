@@ -245,11 +245,11 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock x:Name="tbWords" Grid.Column="0" Margin="10,10,10,100" Text="Слово, слово, слово, слово" FontSize="17" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            <TextBlock x:Name="tbWords" Grid.Column="0" Margin="10,10,10,100" FontSize="17" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
             <TextBlock x:Name="tbWrittenWords" Grid.Column="1" Margin="10,10,10,100" Text="Введенное Слово, слово, слово, слово" FontSize="17" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 
-            <TextBox x:Name="tInput" HorizontalAlignment="Stretch" Margin="10,257,10,10" Text="TextBox" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="tInput" HorizontalAlignment="Stretch" Margin="10,257,10,10" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Stretch" Grid.ColumnSpan="2"/>
 
             <Label x:Name="lTimer" Content="00:00" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="150"/>
         </Grid>
