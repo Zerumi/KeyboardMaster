@@ -23,10 +23,10 @@ namespace KeyboardMaster
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly FlowDocument Words = new();
-        public readonly Paragraph WordsParagraph = new();
-        public readonly FlowDocument WrittenWords = new();
-        public readonly Paragraph WrittenWordsParagraph = new();
+        public FlowDocument Words = new();
+        public Paragraph WordsParagraph = new();
+        public FlowDocument WrittenWords = new();
+        public Paragraph WrittenWordsParagraph = new();
         public string sWords = string.Empty;
 
         DispatcherTimer timer = new DispatcherTimer();
@@ -44,6 +44,7 @@ namespace KeyboardMaster
             Loading();
         }
 
+        #region Dictonary & TextBoxes
         DispatcherTimer timer1 = new DispatcherTimer();
         DispatcherTimer timer2 = new DispatcherTimer();
         private void timer_tick(object sender, EventArgs e)
@@ -116,7 +117,9 @@ namespace KeyboardMaster
             TextRange textRange2 = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
             textRange2.ApplyPropertyValue(FontWeightProperty, FontWeights.Bold);
         }
+        #endregion
 
+        #region TimerLogic
         private void SetupTimer()
         {
             lTimer.Content = ConfigurationRequest.GetTime();
@@ -131,19 +134,30 @@ namespace KeyboardMaster
             int secs = int.Parse(time.Substring(time.IndexOf(':') + 1));
             if (secs == 0)
             {
-                if (mins-- == 0)
+                if (mins-- == 0) // block UI, refreshing
                 {
-                    await Dispatcher.BeginInvoke(new Action(() =>
+                    await Dispatcher.BeginInvoke(new Action(async() =>
                     {
+                        tInput.TextChanged -= tInput_TextChanged;
                         timer.Stop();
                         tInput.IsEnabled = false;
-                        tbWrittenWords.Document.Blocks.Clear();
+                        tInput.Text = "";
+                        tbWords.Document.Blocks.Clear();
+                        Words = new FlowDocument();
+                        WordsParagraph = new Paragraph();
+                        WrittenWords = new FlowDocument();
+                        WrittenWordsParagraph = new Paragraph();
+                        sWords = string.Empty;
                         SetupDictonaty(ConfigurationRequest.GetDictonary());
                         Network.SubmitScore();
                         lTimer.Content = ConfigurationRequest.GetTime();
+                        isTimerStarted = false;
+                        SetupTextBoxes();
+                        await Task.Delay(5500);
+                        tInput.TextChanged += tInput_TextChanged;
                         tInput.IsEnabled = true;
+                        tInput.Focus();
                     }));
-                    isTimerStarted = false;
                     return;
                 }
                 secs = 60;
@@ -153,7 +167,9 @@ namespace KeyboardMaster
                 lTimer.Content = $"{mins}:{--secs}";
             }));
         }
+#endregion
 
+        #region TextInputLogic
         private int rightindex = 0;
         private string OldText = string.Empty;
         private void tInput_GotFocus(object sender, RoutedEventArgs e)
@@ -172,7 +188,7 @@ namespace KeyboardMaster
             {
                 if (!isTimerStarted)
                 {
-                    // tbWrittenWords.Document.Blocks.Clear(); // fix
+                    tbWrittenWords.Document.Blocks.Clear();
                     timer.Start();
                     isTimerStarted = true;
                 }
@@ -291,5 +307,6 @@ namespace KeyboardMaster
                 ExceptionHandler.RegisterNew(ex);
             }
         }
+        #endregion
     }
 }
