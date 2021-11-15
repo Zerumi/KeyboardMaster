@@ -21,13 +21,20 @@ namespace KeyboardMaster
             {
                 m_globalHook = Hook.GlobalEvents();
                 m_globalHook.KeyDown += GlobalHookKeyDown;
+                m_globalHook.KeyUp += GlobalHookKeyUp;
             }
+            
         }
         private IKeyboardMouseEvents m_globalHook;
         private void GlobalHookKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)//Обработчик собыьтия по вытягиванию нажатых клавиш
         {
-            //Действие при вызове события
-            // если нажали клавишу
+            highlightingKeys highlightingKeys = new highlightingKeys();
+            highlightingKeys.keyPressed(e.KeyData.ToString());
+        }
+        private void GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)//Обработчик собыьтия по вытягиванию нажатых клавиш
+        {
+            highlightingKeys highlightingKeys = new highlightingKeys();
+            highlightingKeys.keyUpped(e.KeyData.ToString());
         }
 
 
