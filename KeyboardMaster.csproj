@@ -19,7 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Attachments\d1.gif" />
+    <None Remove="Attachments\d2.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Attachments\d2.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -34,7 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Attachments\" />
+    <None Update="Attachments\d1.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

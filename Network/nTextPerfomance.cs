@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KeyboardMaster
+﻿namespace KeyboardMaster
 {
-    class nTextPerfomance
+    public class nTextPerfomance
     {
         public int CorrectChars { get; set; }
         public int IncorrectChars { get; set; }
@@ -14,5 +8,6 @@ namespace KeyboardMaster
         public int ErrorWords { get; set; }
         public double Accuracy { get; set; }
         public int WordsPerMinute { get; set; }
+        public int WrongWords { get; set; }
     }
 }

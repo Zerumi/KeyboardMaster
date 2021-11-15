@@ -10,5 +10,6 @@ namespace KeyboardMaster
         public static int ErrorWords { get; set; }
         public static double Accuracy => Math.Round(CorrectChars / (double)(CorrectChars + IncorrectChars) * 100, 2);
         public static int WordsPerMinute { get; set; }
+        public static int WrongWords { get; set; }
     }
 }

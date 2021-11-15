@@ -31,6 +31,7 @@ namespace KeyboardMaster
             if (chars.Count!=0)
             {
                 sum += chars.Count() * 60;
+                CorePerfomance.AverageCPM = sum / counter;
                 string ACMP_output = $"Среднее число символов в минуту: {sum / counter}";
                 main.ACPM.Content = ACMP_output;
                 counter++;
@@ -38,7 +39,8 @@ namespace KeyboardMaster
             if (best<chars.Count)//Проверка максимального числа символов в минуту
             {
                 best = chars.Count;
-                string bestCPM_output = $"Лучшее число символов в минуту: {chars.Count*60}";
+                CorePerfomance.BestCPM = chars.Count * 60;
+                string bestCPM_output = $"Лучшее число символов в минуту: {chars.Count * 60}";
                 main.best_CPM.Content = bestCPM_output;
             }
             chars = new List<string>();

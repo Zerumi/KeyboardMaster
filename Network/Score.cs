@@ -2,7 +2,7 @@
 
 namespace KeyboardMaster
 {
-    internal class Score
+    public class Score
     {
         public string Name { get; set; }
         public DateTime Timestamp { get; set; }

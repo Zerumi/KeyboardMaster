@@ -8,5 +8,6 @@
         public int ErrorWords { get; set; }
         public double Accuracy { get; set; }
         public int WordsPerMinute { get; set; }
+        public int WrongWords { get; set; }
     }
 }

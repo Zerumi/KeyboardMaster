@@ -308,11 +308,11 @@
             <Label x:Name="lCorrectChars" Content="Правильно напечатанных символов: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358"/>
             <Label x:Name="lIncorrectChars" Content="Неправильно напечатанных символов: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,26,0,0"/>
             <Label x:Name="lIdealWords" Content="Идеально написанные слова: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,52,0,0"/>
-            <Label x:Name="lErrorWords" Content="Слова с ошибками: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,78,0,0"/>
+            <Label x:Name="lErrorWords" Content="Слова с опечатками: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,78,0,0"/>
             <Label x:Name="lAccuracy" Content="Аккуратность: 0.00%" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,104,0,0"/>
-            <Label x:Name="lWPM" Content="Слов в минуту: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,130,0,0"/>
-            <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,156,0,0"/>
-            <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,182,0,0"/>
+            <Label x:Name="lWrongWords" Content="Завершенные слова с опечатками: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,130,0,0"/>
+            <Label x:Name="lWPM" Content="Слов в минуту: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,156,0,0"/>
+            <Label x:Name="lWordPerfomance" Content="В среднем слов в минуту: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,182,0,0"/>
             <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,208,0,0"/>
             <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,234,0,0"/>
             <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,260,0,0"/>
