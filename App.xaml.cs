@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace KeyboardMaster
     /// </summary>
     public partial class App : System.Windows.Application
     {
+        public static Cookie AuthCookie;
         public static int best_latency = int.MaxValue;
         public static int sum = 0;
         public static int counter = 1;

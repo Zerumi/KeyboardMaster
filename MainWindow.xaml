@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeyboardMaster"
         mc:Ignorable="d"
-        Title="KeyboardMaster by CrutchGroup" Height="610" Width="1200" ResizeMode="CanMinimize">
+        Title="KeyboardMaster by CrutchGroup" Height="610" Width="1200" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="820"/>
@@ -16,6 +16,7 @@
             <RowDefinition Height="313"/>
             <RowDefinition Height="249"/>
         </Grid.RowDefinitions>
+
         <Grid x:Name="title_Animation" Visibility="Visible" Grid.ColumnSpan="2" Grid.RowSpan="3">
             <MediaElement x:Name="media" Visibility="Visible" UnloadedBehavior="Manual"  Stretch="Fill" Margin="-100">
                 <MediaElement.Triggers>
@@ -49,6 +50,7 @@
                 </Label.Triggers>
             </Label>
         </Grid>
+
         <Grid x:Name="gKeyboard" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="2" Grid.Column="0">
             <Rectangle x:Name="Escape" Stroke="Black" Margin="10,10,0,0" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Top"/>
             <Rectangle x:Name="F1" Stroke="Black" Margin="80,10,0,0" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Top"/>
@@ -305,5 +307,8 @@
             <MenuItem x:Name="mPerfomance" Header="Perfomance"/>
             <MenuItem x:Name="mInfo" Header="Info"/>
         </Menu>
+
+        <Label x:Name="lWelcome" Visibility="Hidden" Content="Loading..." Grid.Column="1" HorizontalContentAlignment="Right" FontSize="10" VerticalAlignment="Center" Margin="4,0,90,0"/>
+        <Label x:Name="lTime" Visibility="Hidden" Content="01/01/2021 12:59" Grid.Column="1" HorizontalContentAlignment="Left" FontSize="10" VerticalAlignment="Center" Margin="287,0,-3,0"/>
     </Grid>
 </Window>

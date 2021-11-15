@@ -2,7 +2,7 @@
 
 namespace KeyboardMaster
 {
-    static class TextPerfomance
+    class TextPerfomance
     {
         public static int CorrectChars { get; set; }
         public static int IncorrectChars { get; set; }

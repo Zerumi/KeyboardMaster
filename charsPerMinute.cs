@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyboardMaster;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,8 @@ namespace KeyboardMaster
         private void timer_tick(object sender, EventArgs e)
         {
             timer.Stop();
+            CorePerfomance.CharsPerMinute = chars.Count * 20;
+            string output = $"Символов в минуту: {chars.Count * 20}";
             string output = $"Символов в минуту: {chars.Count * 60}";//Строка выходных данных о количестве символов в минуту
             main.CPM.Content = output;
             if (chars.Count!=0)

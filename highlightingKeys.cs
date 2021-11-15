@@ -16,14 +16,41 @@ namespace KeyboardMaster
         public void keyPressed(string key)
         {
             MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
-            rect = m3md2.WinHelper.FindChild<Rectangle>( main.gKeyboard, key);
-            rect.Fill = Brushes.LightGreen;
+            rect = m3md2.WinHelper.FindChild<Rectangle>(main.gKeyboard, key);
+            if (rect == null)
+            {
+                key = key.Split(", ").First();
+                if (key == "Alt")
+                {
+                    key = "LMenu";
+                }
+                rect = m3md2.WinHelper.FindChild<Rectangle>(main.gKeyboard, key);
+                rect.Fill = Brushes.LightGreen;
+            }
+            else
+            {
+                rect.Fill = Brushes.LightGreen;
+            }
         }
+
         public void keyUpped(string key)
         {
             MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
             rect = m3md2.WinHelper.FindChild<Rectangle>(main.gKeyboard, key);
-            rect.Fill = Brushes.WhiteSmoke;
+            if (rect == null)
+            {
+                key = key.Split(", ").First();
+                if (key == "Alt")
+                {
+                    key = "LMenu";
+                }
+                rect = m3md2.WinHelper.FindChild<Rectangle>(main.gKeyboard, key);
+                rect.Fill = Brushes.WhiteSmoke;
+            }
+            else
+            {
+                rect.Fill = Brushes.WhiteSmoke;
+            }
         }
     }
 }
