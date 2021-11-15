@@ -16,8 +16,40 @@
             <RowDefinition Height="313"/>
             <RowDefinition Height="249"/>
         </Grid.RowDefinitions>
-        
-        <Grid x:Name="gKeyboard" Margin="10,10,10,10" Grid.Row="2" Grid.Column="0">
+        <Grid x:Name="title_Animation" Visibility="Visible" Grid.ColumnSpan="2" Grid.RowSpan="3">
+            <MediaElement x:Name="media" Visibility="Visible" UnloadedBehavior="Manual"  Stretch="Fill" Margin="-100">
+                <MediaElement.Triggers>
+                    <EventTrigger RoutedEvent="MediaElement.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard AutoReverse="True">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="0"
+                                             BeginTime="0:0:2.1"
+                                             Duration="0:0:2.6">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </MediaElement.Triggers>
+            </MediaElement>
+            <Label x:Name="loadLabel" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Center"  Content="Keyboard master" FontSize="55" FontWeight="Bold">
+                <Label.Triggers>
+                    <EventTrigger RoutedEvent="MediaElement.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard AutoReverse="True">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="0"
+                                             BeginTime="0:0:4.3"
+                                             Duration="0:0:0.5"
+                                             >
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Label.Triggers>
+            </Label>
+        </Grid>
+        <Grid x:Name="gKeyboard" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="2" Grid.Column="0">
             <Rectangle x:Name="Escape" Stroke="Black" Margin="10,10,0,0" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Top"/>
             <Rectangle x:Name="F1" Stroke="Black" Margin="80,10,0,0" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Top"/>
             <Rectangle x:Name="F2" Stroke="Black" Margin="115,10,0,0" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Top"/>
@@ -228,7 +260,7 @@
             <Label Content="Rn" HorizontalAlignment="Left" Margin="740,150,0,0" VerticalAlignment="Top" Height="65" Width="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         </Grid>
 
-        <Grid x:Name="gCorePerfomance" Margin="10,10,10,10" Grid.Row="2" Grid.Column="1">
+        <Grid x:Name="gCorePerfomance" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="2" Grid.Column="1">
             <Label Content="CorePerfomance: 1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="358"/>
             <Label Content="CorePerfomance: 1" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" Width="358"/>
             <Label Content="CorePerfomance: 1" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="358"/>
@@ -239,7 +271,7 @@
             <Label Content="CorePerfomance: 1" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Width="358"/>
         </Grid>
 
-        <Grid x:Name="gTextInput" Margin="10,10,10,10" Grid.Row="1" Grid.Column="0">
+        <Grid x:Name="gTextInput" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="1" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -254,7 +286,7 @@
             <Label x:Name="lTimer" Content="01:00" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="150"/>
         </Grid>
 
-        <Grid x:Name="gTextPerfomance" Margin="10,10,10,10" Grid.Row="1" Grid.Column="1">
+        <Grid x:Name="gTextPerfomance" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="1" Grid.Column="1">
             <Label x:Name="lCorrectChars" Content="Правильно напечатанных символов: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358"/>
             <Label x:Name="lIncorrectChars" Content="Неправильно напечатанных символов: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,26,0,0"/>
             <Label x:Name="lIdealWords" Content="Идеально написанные слова: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,52,0,0"/>
@@ -268,7 +300,7 @@
             <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,260,0,0"/>
         </Grid>
 
-        <Menu x:Name="Menu" Grid.ColumnSpan="2" Grid.Row="0">
+        <Menu x:Name="Menu" Visibility="Hidden" Grid.ColumnSpan="2" Grid.Row="0">
             <MenuItem x:Name="mManage" Header="Manage"/>
             <MenuItem x:Name="mPerfomance" Header="Perfomance"/>
             <MenuItem x:Name="mInfo" Header="Info"/>
