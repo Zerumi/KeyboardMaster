@@ -18,6 +18,22 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="title_Animation" Visibility="Visible" Grid.ColumnSpan="2" Grid.RowSpan="3">
+
+            <MediaElement x:Name="media2" Visibility="Hidden" Opacity="0.4" UnloadedBehavior="Manual"  Stretch="Fill" Margin="0">
+                <MediaElement.Triggers>
+                    <EventTrigger RoutedEvent="MediaElement.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard AutoReverse="True">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="0"
+                                             BeginTime="0:0:4.3"
+                                             Duration="0:0:0.5">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </MediaElement.Triggers>
+            </MediaElement>
             <MediaElement x:Name="media" Visibility="Visible" UnloadedBehavior="Manual"  Stretch="Fill" Margin="-100">
                 <MediaElement.Triggers>
                     <EventTrigger RoutedEvent="MediaElement.Loaded">
@@ -26,7 +42,7 @@
                                 <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="0"
                                              BeginTime="0:0:2.1"
-                                             Duration="0:0:2.6">
+                                             Duration="0:0:2.8">
                                 </DoubleAnimation>
                             </Storyboard>
                         </BeginStoryboard>

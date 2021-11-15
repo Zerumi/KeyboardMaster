@@ -41,6 +41,7 @@ namespace KeyboardMaster
             SetupTimer();
             //Путь к гиф
             media.Source = new Uri(Environment.CurrentDirectory + "\\d1.gif");
+            media2.Source = new Uri(Environment.CurrentDirectory + "\\d2.gif");
             //Метод инициализации таймера
             Loading();
             charsPerMinute charsPerMinute = new charsPerMinute();
@@ -66,11 +67,14 @@ namespace KeyboardMaster
             timer1.Stop();
             //Скрываем гиф
             media.Visibility = Visibility.Hidden;
+            media2.Visibility = Visibility.Hidden;
             //Скрываем название проекта
             loadLabel.Visibility = Visibility.Hidden;
         }
         private void timer_tick2(object sender, EventArgs e)
         {
+
+            media2.Visibility = Visibility.Visible;
             loadLabel.Visibility = Visibility.Visible;
             timer2.Stop();
         }
