@@ -23,19 +23,21 @@ namespace KeyboardMaster
     {
         public readonly FlowDocument Words = new();
         public readonly Paragraph WordsParagraph = new();
+        public readonly FlowDocument WrittenWords = new();
+        public readonly Paragraph WrittenWordsParagraph = new();
         public string sWords = string.Empty;
 
         public MainWindow()
         {
             InitializeComponent();
             SetupDictonaty(ConfigurationRequest.GetDictonary());
-            TextRange textRange = new(tbWords.Document.ContentStart, tbWords.Document.ContentEnd);
-            sWords = textRange.Text;
+            SetupTextBoxes();
+            _ = tInput.Focus();
         }
 
         private void SetupDictonaty(IDictonary dictonary)
         {
-            Random random = new(unchecked((Int32)DateTime.Now.Ticks));
+            Random random = new(unchecked((int)DateTime.Now.Ticks));
 
             List<int> indexes = new();
 
@@ -60,15 +62,25 @@ namespace KeyboardMaster
             tbWords.Document = Words;
         }
 
-        int rightindex = 0;
+        private void SetupTextBoxes()
+        {
+            TextRange textRange = new(tbWords.Document.ContentStart, tbWords.Document.ContentEnd);
+            sWords = textRange.Text;
+            currentword = sWords.Substring(0, sWords.IndexOf(' ') + 1);
+            TextRange textRange2 = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
+            textRange2.ApplyPropertyValue(FontWeightProperty, FontWeights.Bold);
+        }
 
-        string OldText = string.Empty;
+        private int rightindex = 0;
+        private string OldText = string.Empty;
         private void tInput_GotFocus(object sender, RoutedEventArgs e)
         {
             OldText = tInput.Text;
         }
 
-        bool isFromNewWord = false;
+        private bool isFromNewWord = false;
+        private bool isIdealWord = true;
+        private string currentword = string.Empty;
 
         private void tInput_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -77,25 +89,51 @@ namespace KeyboardMaster
                 if (isFromNewWord)
                 {
                     isFromNewWord = false;
+                    isIdealWord = true;
+                    currentword = sWords.Substring(0, sWords.IndexOf(' ') + 1);
+                    TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
+                    textRange.ApplyPropertyValue(FontWeightProperty, FontWeights.Bold);
                 }
                 else if (OldText == string.Empty)
                 {
                     char rightchar = sWords[rightindex++];
+                    TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
+
                     if (tInput.Text == " ") // Word ended
                     {
-                        // edit flowdocument // word skipped
+                        textRange.Text = "";
                         sWords = sWords[(sWords.IndexOf(' ') + 1)..];
                         rightindex = 0;
                         isFromNewWord = true;
+                        if (isIdealWord)
+                        {
+                            lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
+                        }
+                        WrittenWordsParagraph.Inlines.Add(new Run(currentword) { Foreground = tInput.Text == currentword ? isIdealWord ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 0, 0)) });
+                        WrittenWords.Blocks.Clear();
+                        WrittenWords.Blocks.Add(WrittenWordsParagraph);
+                        tbWrittenWords.Document = WrittenWords;
                         tInput.Text = string.Empty;
                     }
-                    else if (tInput.Text[^1] == rightchar)
+                    else if (tInput.Text[^1] == rightchar) // right symbol
                     {
+                        if (tInput.Text == currentword.Substring(0, rightindex))
+                        {
+                            textRange.ApplyPropertyValue(ForegroundProperty, Brushes.Black);
+                        }
                         lCorrectChars.Content = $"Правильно напечатанных символов: {++TextPerfomance.CorrectChars}";
+                        lAccuracy.Content = $"Аккуратность: {TextPerfomance.Accuracy}%";
                     }
-                    else if (tInput.Text[^1] != rightchar)
+                    else if (tInput.Text[^1] != rightchar) // wrong symbol
                     {
+                        textRange.ApplyPropertyValue(ForegroundProperty, Brushes.Red);
                         lIncorrectChars.Content = $"Неправильно напечатанных символов: {++TextPerfomance.IncorrectChars}";
+                        lAccuracy.Content = $"Аккуратность: {TextPerfomance.Accuracy}%";
+                        if (isIdealWord)
+                        {
+                            isIdealWord = false;
+                            lErrorWords.Content = $"Слова с ошибками: {++TextPerfomance.ErrorWords}";
+                        }
                     }
                 }
                 else if (tInput.Text == string.Empty && !isFromNewWord) // Ctrl + A -> Delete
@@ -112,22 +150,44 @@ namespace KeyboardMaster
                 }
                 else if (tInput.Text.Replace(OldText, "").Length == 1) // Added 1 symbol
                 {
-                    char rightchar = sWords[rightindex++];
+                    char rightchar = sWords[rightindex++]; 
+                    TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
+                    
                     if (tInput.Text.Replace(OldText, "") == " ") // Word ended
                     {
-                        // edit flowdocument
+                        textRange.Text = "";
                         sWords = sWords[(sWords.IndexOf(' ') + 1)..];
                         rightindex = 0;
                         isFromNewWord = true;
+                        if (isIdealWord)
+                        {
+                            lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
+                        }
+                        WrittenWordsParagraph.Inlines.Add(new Run(currentword) { Foreground = tInput.Text == currentword ? isIdealWord ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 0, 0)) });
+                        WrittenWords.Blocks.Clear();
+                        WrittenWords.Blocks.Add(WrittenWordsParagraph);
+                        tbWrittenWords.Document = WrittenWords;
                         tInput.Text = string.Empty;
                     }
-                    else if (tInput.Text[^1] == rightchar)
+                    else if (tInput.Text[^1] == rightchar) // right symbol
                     {
+                        if (tInput.Text == currentword.Substring(0, rightindex))
+                        {
+                            textRange.ApplyPropertyValue(ForegroundProperty, Brushes.Black);
+                        }
                         lCorrectChars.Content = $"Правильно напечатанных символов: {++TextPerfomance.CorrectChars}";
+                        lAccuracy.Content = $"Аккуратность: {TextPerfomance.Accuracy}%";
                     }
-                    else if (tInput.Text[^1] != rightchar)
+                    else if (tInput.Text[^1] != rightchar) // wrong symbol
                     {
+                        textRange.ApplyPropertyValue(ForegroundProperty, Brushes.Red);
                         lIncorrectChars.Content = $"Неправильно напечатанных символов: {++TextPerfomance.IncorrectChars}";
+                        lAccuracy.Content = $"Аккуратность: {TextPerfomance.Accuracy}%";
+                        if (isIdealWord)
+                        {
+                            isIdealWord = false;
+                            lErrorWords.Content = $"Слова с ошибками: {++TextPerfomance.ErrorWords}";
+                        }
                     }
                 }
                 else if (OldText.Replace(tInput.Text, "").Length == 1) // Removed 1 symbol
