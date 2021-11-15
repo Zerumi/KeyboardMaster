@@ -21,6 +21,9 @@ namespace KeyboardMaster
     /// </summary>
     public partial class MainWindow : Window
     {
+        public readonly FlowDocument Words = new FlowDocument();
+        public readonly Paragraph WordsParagraph = new Paragraph();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -45,9 +48,13 @@ namespace KeyboardMaster
                 {
                     index = random.Next(dictonary.Words.Length);
                 }
-                indexes.Remove(index);
-                tbWords.Text += $"{dictonary.Words[index]}, ";
+                _ = indexes.Remove(index);
+
+                Run myRun = new Run($"{dictonary.Words[index]} ");
+                WordsParagraph.Inlines.Add(myRun);
             }
+            Words.Blocks.Add(WordsParagraph);
+            tbWords.Document = Words;
         }
     }
 }
