@@ -9,6 +9,7 @@ namespace KeyboardMaster
     class RuDictonary : IDictonary
     {
         public string[] Words { get; set; }
+        public int AverageLettersInWords => 5;
 
         public RuDictonary()
         {

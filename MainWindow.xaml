@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KeyboardMaster"
         mc:Ignorable="d"
         Title="KeyboardMaster by CrutchGroup" Height="610" Width="1200" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid Background="WhiteSmoke">
@@ -357,10 +356,10 @@
             <Label x:Name="lIdealWords" Content="Идеально написанные слова: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,78,0,0"/>
             <Label x:Name="lErrorWords" Content="Слова с опечатками: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,104,0,0"/>
             <Label x:Name="lWrongWords" Content="Завершенные слова с опечатками: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,130,0,0"/>
-            <Label x:Name="lWPM" Content="Фактически слов в минуту: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,156,0,0"/>
+            <Label x:Name="lWPM" Content="Фактически слов в минуту: Только в конце теста" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,156,0,0"/>
             <Label x:Name="lAverageWPM" Content="В среднем слов в минуту: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,182,0,0"/>
             <Label x:Name="lIdealWordStreak" Content="Серия идеально написанных слов: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,208,0,0"/>
-            <Label x:Name="lWordAccuracy" Content="Аккуратность написания слов: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,234,0,0"/>
+            <Label x:Name="lWordAccuracy" Content="Аккуратность написания слов: 0.00%" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,234,0,0"/>
             <Label x:Name="lTextPP" Content="Показатель производительности: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,260,0,0"/>
             <Grid.Triggers>
                 <EventTrigger RoutedEvent="MediaElement.Loaded">
@@ -378,11 +377,9 @@
             </Grid.Triggers>
         </Grid>
 
-        <Menu x:Name="Menu" Visibility="Visible" Grid.ColumnSpan="2" Grid.Row="0">
-            <MenuItem x:Name="mLangs" Header="Изменить словарь">
-            </MenuItem>
-            <MenuItem x:Name="mTrainingMode" Header="Режим тренировки" Click="mTrainingMode_Click">
-            </MenuItem>
+        <Menu x:Name="Menu" Visibility="Hidden" Grid.ColumnSpan="2" Grid.Row="0">
+            <MenuItem x:Name="mLangs" Header="Изменить словарь"/>
+            <MenuItem x:Name="mTrainingMode" Header="Режим тренировки" Click="mTrainingMode_Click"/>
             <MenuItem x:Name="mRanking" Header="Ранкинг">
                 <MenuItem x:Name="mPerfomanceRanking" Header="Рейтинг производительности" Click="mPerfomanceRanking_Click"/>
             </MenuItem>

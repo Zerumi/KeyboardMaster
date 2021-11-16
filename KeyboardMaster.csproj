@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <None Remove="Attachments\d2.gif" />
-    <None Remove="Image1.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,10 +37,6 @@
 
   <ItemGroup>
     <ProjectReference Include="m3md2\m3md2.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Image1.png" />
   </ItemGroup>
 
   <ItemGroup>

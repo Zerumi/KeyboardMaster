@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -178,7 +179,6 @@ namespace KeyboardMaster
 
             timer.Tick += Timer_Tick;
 
-
             TimeTimer.Tick += TimeTimerTick;
             TimeTimer.Interval = new TimeSpan(0, 0, 1);
             TimeTimer.Start();
@@ -204,10 +204,13 @@ namespace KeyboardMaster
                     {
                         tInput.TextChanged -= tInput_TextChanged;
                         timer.Stop();
+                        swordtime.Stop();
                         tInput.IsEnabled = false;
                         tInput.Text = "";
+                        TextPerfomance.StreakIdealWords = maxstreak;
                         TextPerfomance.WordsPerMinute = Convert.ToInt32(Math.Floor((TextPerfomance.IdealWords + TextPerfomance.ErrorWords - TextPerfomance.WrongWords) / totalmins));
                         lWPM.Content = $"Слов в минуту: {TextPerfomance.WordsPerMinute}";
+                        lIdealWordStreak.Content = $"Серия идеально написанных слов: {maxstreak}";
                         tbWords.Document.Blocks.Clear();
                         Words = new FlowDocument();
                         WordsParagraph = new Paragraph();
@@ -222,7 +225,7 @@ namespace KeyboardMaster
                         await Task.Delay(5500);
                         tInput.TextChanged += tInput_TextChanged;
                         tInput.IsEnabled = true;
-                        tInput.Focus();
+                        _ = tInput.Focus();
                     }));
                     return;
                 }
@@ -247,6 +250,12 @@ namespace KeyboardMaster
         private bool isIdealWord = true;
         private string currentword = string.Empty;
         private bool isTimerStarted = false;
+        private bool isStreak = true;
+        private int currentstreak = 0;
+        private int maxstreak = 0;
+        private double lasttimervalue = 0;
+
+        Stopwatch swordtime = new Stopwatch();
 
         private void tInput_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -254,10 +263,6 @@ namespace KeyboardMaster
             {
                 if (!isTimerStarted) // starts new test
                 {
-                    tbWrittenWords.Document.Blocks.Clear();
-                    timer.Start();
-
-                    MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
                     CorePerfomanceLogic.best = 0;
                     CorePerfomanceLogic.sumCh = 0;
                     CorePerfomanceLogic.counter = 1;//Обнуление значений перед началом нового сбора данных
@@ -267,14 +272,37 @@ namespace KeyboardMaster
                     CorePerfomanceLogic.counter = 1;
                     CorePerfomanceLogic.sum = 0;
                     CorePerfomanceLogic.uniformitySum = 0;
-                    main.best_latency.Content = $"Лучшая задержка: {0}ms";
-                    main.print_delay.Content = $"Задержка печати: {0}ms";
-                    main.avr_print_delay.Content = $"Средняя задержка: {0}ms";
-                    main.CPM.Content = $"Символов в минуту: {0}";
-                    main.ACPM.Content = $"Среднее число символов в минуту: {0}";
-                    main.best_CPM.Content = $"Лучшее число символов в минуту: {0}";
-                    main.printing_uniformity.Content = $"Равномерность печати: {0}";
+                    best_latency.Content = $"Лучшая задержка: {0}ms";
+                    print_delay.Content = $"Задержка печати: {0}ms";
+                    avr_print_delay.Content = $"Средняя задержка: {0}ms";
+                    CPM.Content = $"Символов в минуту: {0}";
+                    ACPM.Content = $"Среднее число символов в минуту: {0}";
+                    best_CPM.Content = $"Лучшее число символов в минуту: {0}";
+                    printing_uniformity.Content = $"Равномерность печати: {0}";
 
+                    TextPerfomance.IdealWords = 0;
+                    TextPerfomance.AverageWPM = 0;
+                    TextPerfomance.WordsPerMinute = 0;
+                    TextPerfomance.CorrectChars = 0;
+                    TextPerfomance.ErrorWords = 0;
+                    TextPerfomance.WrongWords = 0;
+                    TextPerfomance.IncorrectChars = 0;
+                    TextPerfomance.StreakIdealWords = 0;
+                    lCorrectChars.Content = "Правильно напечатанных символов: 0";
+                    lIncorrectChars.Content = "Неправильно напечатанных символов: 0";
+                    lAccuracy.Content = "Аккуратность: 0.00%";
+                    lIdealWords.Content = "Идеально написанные слова: 0";
+                    lErrorWords.Content = "Слова с опечатками: 0";
+                    lWrongWords.Content = "Завершенные слова с опечатками: 0";
+                    lWPM.Content = "Фактически слов в минуту: Только в конце теста";
+                    lAverageWPM.Content = "В среднем слов в минуту: 0";
+                    lIdealWordStreak.Content = "Серия идеально написанных слов: 0";
+                    lWordAccuracy.Content = "Аккуратность написания слов: 0.00%";
+                    lTextPP.Content = "Показатель производительности: 0";
+
+                    tbWrittenWords.Document.Blocks.Clear();
+                    timer.Start();
+                    swordtime.Start();
                     isTimerStarted = true;
                 }
                 if (isFromNewWord)
@@ -292,18 +320,44 @@ namespace KeyboardMaster
 
                     if (tInput.Text == " ") // Word ended
                     {
+                        double totalsecs = swordtime.Elapsed.TotalMilliseconds / 1000;
                         textRange.Text = "";
                         sWords = sWords[(sWords.IndexOf(' ') + 1)..];
                         rightindex = 0;
                         isFromNewWord = true;
-                        if (isIdealWord)
+                        if (isIdealWord && tInput.Text == currentword)
                         {
                             lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
-                        } 
+                            if (isStreak)
+                            {
+                                lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
+                            }
+                            else
+                            {
+                                isStreak = true;
+                            }
+                        }
                         else if (tInput.Text != currentword)
                         {
                             lWrongWords.Content = $"Завершенные слова с опечатками: {++TextPerfomance.WrongWords}";
+                            isStreak = false;
+                            currentstreak = 0;
+                            if (currentstreak > maxstreak)
+                            {
+                                maxstreak = currentstreak;
+                            }
                         }
+                        if (tInput.Text == currentword)
+                        {
+                            double wordtime = totalsecs - lasttimervalue;
+                            int wordlength = currentword.Length;
+                            TextPerfomance.AverageWPM = (int)Math.Round((double)((double)wordlength / ConfigurationRequest.GetDictonary().AverageLettersInWords) * (1 / (double)wordtime) * 60);
+                            lAverageWPM.Content = $"В среднем слов в минуту: {TextPerfomance.AverageWPM}";
+                        }
+                        lasttimervalue = totalsecs;
+                        ++TextPerfomance.currentwrittenwords;
+                        lWordAccuracy.Content = $"Аккуратность написания слов: {TextPerfomance.WordAccuracy}%";
+                        lTextPP.Content = $"Показатель производительности: {TextPerfomance.TextPerfomancePoints}";
                         WrittenWordsParagraph.Inlines.Add(new Run(currentword) { Foreground = tInput.Text == currentword ? isIdealWord ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 0, 0)) });
                         WrittenWords.Blocks.Clear();
                         WrittenWords.Blocks.Add(WrittenWordsParagraph);
@@ -352,6 +406,7 @@ namespace KeyboardMaster
                     
                     if (tInput.Text.Replace(OldText, "") == " ") // Word ended
                     {
+                        double totalsecs = swordtime.Elapsed.TotalMilliseconds / 1000;
                         textRange.Text = "";
                         sWords = sWords[(sWords.IndexOf(' ') + 1)..];
                         rightindex = 0;
@@ -359,11 +414,36 @@ namespace KeyboardMaster
                         if (isIdealWord)
                         {
                             lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
+                            if (isStreak)
+                            {
+                                lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
+                            }
+                            else
+                            {
+                                isStreak = true;
+                            }
                         }
                         else if (tInput.Text != currentword)
                         {
                             lWrongWords.Content = $"Завершенные слова с опечатками: {++TextPerfomance.WrongWords}";
+                            isStreak = false;
+                            currentstreak = 0;
+                            if (currentstreak > maxstreak)
+                            {
+                                maxstreak = currentstreak;
+                            }
                         }
+                        if (tInput.Text == currentword)
+                        {
+                            double wordtime = totalsecs - lasttimervalue;
+                            int wordlength = currentword.Length;
+                            TextPerfomance.AverageWPM = (int)Math.Round((double)((double)wordlength / ConfigurationRequest.GetDictonary().AverageLettersInWords) * (1 / (double)wordtime) * 60);
+                            lAverageWPM.Content = $"В среднем слов в минуту: {TextPerfomance.AverageWPM}";
+                        }
+                        lasttimervalue = totalsecs;
+                        ++TextPerfomance.currentwrittenwords;
+                        lWordAccuracy.Content = $"Аккуратность написания слов: {TextPerfomance.WordAccuracy}%";
+                        lTextPP.Content = $"Показатель производительности: {TextPerfomance.TextPerfomancePoints}";
                         WrittenWordsParagraph.Inlines.Add(new Run(currentword) { Foreground = tInput.Text == currentword ? isIdealWord ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 0, 0)) });
                         WrittenWords.Blocks.Clear();
                         WrittenWords.Blocks.Add(WrittenWordsParagraph);

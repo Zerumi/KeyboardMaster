@@ -9,6 +9,7 @@ namespace KeyboardMaster
     class EnDictonary : IDictonary
     {
         public string[] Words { get; set; }
+        public int AverageLettersInWords => 5;
 
         public EnDictonary()
         {

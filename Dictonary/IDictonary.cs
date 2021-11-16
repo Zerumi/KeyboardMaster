@@ -9,5 +9,6 @@ namespace KeyboardMaster
     interface IDictonary
     {
         public string[] Words { get; set; }
+        public int AverageLettersInWords { get; }
     }
 }
