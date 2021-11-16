@@ -212,20 +212,22 @@ namespace KeyboardMaster
                     timer.Start();
 
                     MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
-                    charsPerMinute.best = 0;
-                    charsPerMinute.sum = 0;
-                    charsPerMinute.counter = 1;//Обнуление значений перед началом нового сбора данных
+                    CorePerfomanceLogic.best = 0;
+                    CorePerfomanceLogic.sumCh = 0;
+                    CorePerfomanceLogic.counter = 1;//Обнуление значений перед началом нового сбора данных
                     App.watch.Stop();
                     App.watch.Reset();
-                    App.best_latency = int.MaxValue;
-                    App.counter = 1;
-                    App.sum = 0;
+                    CorePerfomanceLogic.best_latency = int.MaxValue;
+                    CorePerfomanceLogic.counter = 1;
+                    CorePerfomanceLogic.sum = 0;
+                    CorePerfomanceLogic.uniformitySum = 0;
                     main.best_latency.Content = $"Лучшая задержка: {0}ms";
                     main.print_delay.Content = $"Задержка печати: {0}ms";
                     main.avr_print_delay.Content = $"Средняя задержка: {0}ms";
                     main.CPM.Content = $"Символов в минуту: {0}";
                     main.ACPM.Content = $"Среднее число символов в минуту: {0}";
                     main.best_CPM.Content = $"Лучшее число символов в минуту: {0}";
+                    main.printing_uniformity.Content = $"Равномерность печати: {0}";
 
                     isTimerStarted = true;
                 }

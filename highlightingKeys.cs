@@ -16,7 +16,9 @@ namespace KeyboardMaster
         public void keyPressed(string key)
         {
             MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
+
             rect = m3md2.WinHelper.FindChild<Rectangle>(main.gKeyboard, key);
+
             if (rect == null)
             {
                 key = key.Split(", ").First();
@@ -36,7 +38,9 @@ namespace KeyboardMaster
         public void keyUpped(string key)
         {
             MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
+
             rect = m3md2.WinHelper.FindChild<Rectangle>(main.gKeyboard, key);
+
             if (rect == null)
             {
                 key = key.Split(", ").First();

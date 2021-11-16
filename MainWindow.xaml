@@ -285,7 +285,7 @@
             <Label x:Name="print_delay" Content="Задержка печати: 0ms" HorizontalAlignment="Center" Margin="0,78,0,0" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="ACPM" Content="Среднее число символов в минуту: 0" HorizontalAlignment="Center" Margin="0,104,0,0" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="avr_print_delay" Content="Средняя задержка: 0ms" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" Width="358"/>
-            <Label Content="CorePerfomance: 1" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="358"/>
+            <Label x:Name="printing_uniformity" Content="Равномерность печати: 0%" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="358"/>
             <Label Content="CorePerfomance: 1" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Width="358"/>
         </Grid>
 
