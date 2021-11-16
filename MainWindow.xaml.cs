@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using m3md2;
+using Newtonsoft.Json;
 
 namespace KeyboardMaster
 {
@@ -40,8 +36,8 @@ namespace KeyboardMaster
             SetupTextBoxes();
             SetupTimer();
             //Путь к гиф
-            media.Source = new Uri(Environment.CurrentDirectory + "\\d1.gif");
-            media2.Source = new Uri(Environment.CurrentDirectory + "\\d2.gif");
+            media.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d1.gif");
+            media2.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d2.gif");
             //Метод инициализации таймера
             Loading();
             charsPerMinute charsPerMinute = new charsPerMinute();
@@ -132,8 +128,13 @@ namespace KeyboardMaster
         #region TimerLogic
         private void SetupTimer()
         {
-            lTimer.Content = ConfigurationRequest.GetTime();
+            string time = ConfigurationRequest.GetTime();
+            lTimer.Content = time;
+            int mins = int.Parse(time.Substring(0, time.IndexOf(':')));
+            int secs = int.Parse(time.Substring(time.IndexOf(':') + 1));
+            totalmins = mins + (double)((double)secs / 60);
             timer.Interval = TimeSpan.FromSeconds(1);
+
             timer.Tick += Timer_Tick;
 
 
@@ -146,6 +147,8 @@ namespace KeyboardMaster
         {
             lTime.Content = DateTime.Now.ToString();
         }
+
+        double totalmins;
 
         private async void Timer_Tick(object sender, EventArgs e)
         {
@@ -162,6 +165,8 @@ namespace KeyboardMaster
                         timer.Stop();
                         tInput.IsEnabled = false;
                         tInput.Text = "";
+                        TextPerfomance.WordsPerMinute = Convert.ToInt32(Math.Floor((TextPerfomance.IdealWords + TextPerfomance.ErrorWords - TextPerfomance.WrongWords) / totalmins));
+                        lWPM.Content = $"Слов в минуту: {TextPerfomance.WordsPerMinute}";
                         tbWords.Document.Blocks.Clear();
                         Words = new FlowDocument();
                         WordsParagraph = new Paragraph();
@@ -169,7 +174,7 @@ namespace KeyboardMaster
                         WrittenWordsParagraph = new Paragraph();
                         sWords = string.Empty;
                         SetupDictonaty(ConfigurationRequest.GetDictonary());
-                        Network.SubmitScore();
+                        new Network().SubmitScore();
                         lTimer.Content = ConfigurationRequest.GetTime();
                         isTimerStarted = false;
                         SetupTextBoxes();
@@ -253,6 +258,10 @@ namespace KeyboardMaster
                         if (isIdealWord)
                         {
                             lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
+                        } 
+                        else if (tInput.Text != currentword)
+                        {
+                            lWrongWords.Content = $"Завершенные слова с опечатками: {++TextPerfomance.WrongWords}";
                         }
                         WrittenWordsParagraph.Inlines.Add(new Run(currentword) { Foreground = tInput.Text == currentword ? isIdealWord ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 0, 0)) });
                         WrittenWords.Blocks.Clear();
@@ -293,7 +302,7 @@ namespace KeyboardMaster
                 {
                     tInput.Text = OldText;
                 }
-                else if (tInput.Text.Replace(OldText, "").Length == 1) // Added 1 symbol
+                else if (tInput.Text.Replace(OldText, "").Length == 1 && tInput.Text.Replace(OldText, "") != tInput.Text) // Added 1 symbol
                 {
                     char rightchar = sWords[rightindex++]; 
                     TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
@@ -307,6 +316,10 @@ namespace KeyboardMaster
                         if (isIdealWord)
                         {
                             lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
+                        }
+                        else if (tInput.Text != currentword)
+                        {
+                            lWrongWords.Content = $"Завершенные слова с опечатками: {++TextPerfomance.WrongWords}";
                         }
                         WrittenWordsParagraph.Inlines.Add(new Run(currentword) { Foreground = tInput.Text == currentword ? isIdealWord ? new SolidColorBrush(Color.FromRgb(0, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 255, 0)) : new SolidColorBrush(Color.FromRgb(255, 0, 0)) });
                         WrittenWords.Blocks.Clear();
@@ -351,8 +364,63 @@ namespace KeyboardMaster
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lWelcome.Content = $"Подключаемся к серверу...";
-            _ = Network.AuthUser(Environment.UserName, out App.AuthCookie);
+            _ = AuthUser(Environment.UserName, out m3md2.StaticVariables.AuthCookie);
             lWelcome.Content = $"{Parser.GetWelcomeLabel(Parser.GetTimeDescription(DateTime.Now))}, {Environment.UserName}!";
+        }
+
+        public static Client AuthUser(string username, out Cookie cookie) // метод для авторизации на сервере
+        {
+            Client returnproduct = default;
+            try
+            {
+                CookieContainer cookies = new CookieContainer(); // авторизуем, отправляя Post запрос с нужными параметрами
+                HttpClientHandler handler = new HttpClientHandler
+                {
+                    CookieContainer = cookies
+                };
+                HttpClient client = new HttpClient(handler)
+                {
+                    BaseAddress = new Uri(m3md2.StaticVariables.BaseServerAddress)
+                };
+                client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
+                string json = JsonConvert.SerializeObject(username);
+                HttpResponseMessage response = client.PostAsync($"auth", new StringContent(json, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+                response.EnsureSuccessStatusCode();
+                returnproduct = response.Content.ReadAsAsync<Client>().GetAwaiter().GetResult();
+                try // Получаем куки
+                {
+                    Uri uri = new Uri($"{m3md2.StaticVariables.BaseServerAddress}auth");
+                    var collection = cookies.GetCookies(uri);
+                    cookie = collection[".AspNetCore.Cookies"];
+                }
+                catch (Exception ex)
+                {
+                    ExceptionHandler.RegisterNew(ex);
+                    cookie = default;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.RegisterNew(ex);
+                cookie = default;
+            }
+            return returnproduct;
+        }
+
+        private void mAbout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mPerfomanceRanking_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mManage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

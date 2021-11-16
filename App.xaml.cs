@@ -19,6 +19,9 @@ namespace KeyboardMaster
     {
         static ICorePerfomance corePerfomance = new CorePerfomanceLogic();
         public static Cookie AuthCookie;
+        public static long best_latency = long.MaxValue;
+        public static int sum = 0;
+        public static int counter = 1;
 
         highlightingKeys highlightingKeys = new highlightingKeys();
 
@@ -53,6 +56,21 @@ namespace KeyboardMaster
 
                 CorePerfomanceLogic.counter++;
                 CorePerfomanceLogic.lastLatency = (int)watch.ElapsedMilliseconds;
+                CorePerfomance.Latency = watch.ElapsedMilliseconds;
+                string output = $"Задержка печати: {watch.ElapsedMilliseconds}ms";
+                if (best_latency>watch.ElapsedMilliseconds && watch.ElapsedMilliseconds!=0) //Лучшая задержка
+                {
+                    best_latency = watch.ElapsedMilliseconds;
+                    CorePerfomance.BestLatency = best_latency;
+                    string latency_record = $"Лучшая задержка: {best_latency}ms";
+                    main.best_latency.Content = latency_record;
+                }
+                main.print_delay.Content = output;
+                sum += (int)watch.ElapsedMilliseconds;
+                string avr_delay_output = $"Средняя задержка: {sum/counter}ms";
+                CorePerfomance.AverageDelay = sum / counter;
+                main.avr_print_delay.Content = avr_delay_output;
+                counter++;
                 watch.Reset();
                 watch.Start();
             }

@@ -13,7 +13,7 @@ namespace m3md2
         public static int ExceptionCount;
         public static UpgList<Exception> exceptions = new();
         public static string BaseServerAddress = "http://keyboardmaster-server.glitch.me/";
-        public static Cookie AuthCookie { get; set; }
+        public static Cookie AuthCookie;
         public static LanguageDictonary LanguageDictonary { get; set; }
 #pragma warning restore CA2211 // Поля, не являющиеся константами, не должны быть видимыми
     }
