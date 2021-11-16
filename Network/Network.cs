@@ -70,7 +70,9 @@ namespace KeyboardMaster
                         AverageDelay = CorePerfomance.AverageDelay,
                         BestCPM = CorePerfomance.BestCPM,
                         BestLatency = CorePerfomance.BestLatency,
-                        Latency = CorePerfomance.Latency
+                        Latency = CorePerfomance.Latency,
+                        printingUniformity = CorePerfomance.printingUniformity,
+                        CorePerfomancePoints = CorePerfomance.CorePerfomancePoints
                     }
                 };
                 await ScoreConnection.InvokeAsync("SubmitScore", score);

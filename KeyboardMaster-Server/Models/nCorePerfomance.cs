@@ -8,5 +8,7 @@
         public long BestLatency { get; set; }
         public long Latency { get; set; }
         public int AverageDelay { get; set; }
+        public int printingUniformity { get; set; }
+        public int CorePerfomancePoints { get; set; }
     }
 }

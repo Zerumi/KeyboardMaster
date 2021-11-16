@@ -503,9 +503,11 @@ namespace KeyboardMaster
             perfomanceRanking.Show();
         }
 
+        TrainingMode trainingMode = default;
+
         private void mTrainingMode_Click(object sender, RoutedEventArgs e)
         {
-            TrainingMode trainingMode = new TrainingMode();
+            trainingMode = new TrainingMode();
             trainingMode.Show();
         }
 
