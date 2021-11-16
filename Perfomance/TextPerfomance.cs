@@ -4,7 +4,9 @@ namespace KeyboardMaster
 {
     public class TextPerfomance
     {
-        public static int currentwrittenwords = 0;
+        public static int currentwrittenwords;
+        public static double minutes;
+        public static double wordtime;
         public static int CorrectChars { get; set; }
         public static int IncorrectChars { get; set; }
         public static double Accuracy => Math.Round(CorrectChars / (double)(CorrectChars + IncorrectChars) * 100, 2);
@@ -15,6 +17,6 @@ namespace KeyboardMaster
         public static int AverageWPM { get; set; }
         public static int StreakIdealWords { get; set; }
         public static double WordAccuracy => Math.Round(IdealWords / (double)currentwrittenwords * 100, 2);
-        public static double TextPerfomancePoints => Math.Round(Accuracy * WordAccuracy * IdealWords / 10000, 2);
+        public static double TextPerfomancePoints => Math.Round(Accuracy * WordAccuracy * IdealWords * (AverageWPM * wordtime / 60) / (10000 * minutes), 2);
     }
 }

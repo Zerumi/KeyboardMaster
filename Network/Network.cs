@@ -17,7 +17,8 @@ namespace KeyboardMaster
             options.UseDefaultCredentials = true;
             options.Headers.Add("User-Agent", "Mozilla/5.0");
             options.Cookies.Add(m3md2.StaticVariables.AuthCookie);
-        }).Build();
+        }).WithAutomaticReconnect()
+            .Build();
 
         public static List<Score> scores = new List<Score>();
 

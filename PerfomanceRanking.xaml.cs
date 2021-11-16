@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Threading;
 
 namespace KeyboardMaster
 {
@@ -10,12 +11,40 @@ namespace KeyboardMaster
     /// </summary>
     public partial class PerfomanceRanking : Window
     {
+        readonly DispatcherTimer timer = new();
+
         public PerfomanceRanking()
         {
             InitializeComponent();
+            timer.Tick += Timer_Tick;
+            timer.Interval = TimeSpan.FromMinutes(1);
             SetupScores();
             Network.OnScoresUpdate += SetupScores;
             Network.OnScoreAdd += Scores_OnAdd;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            List<Score> scores = Network.scores;
+
+            trgNames.Rows.Clear();
+            TableRow EmptyRow = new();
+            TableCell EmptyCell = new();
+            Paragraph EmptyPar = new();
+            EmptyPar.Inlines.Add(string.Empty);
+            EmptyCell.Blocks.Add(EmptyPar);
+            EmptyRow.Cells.Add(EmptyCell);
+            trgNames.Rows.Add(EmptyRow);
+            foreach (Score item in scores)
+            {
+                TableRow NametableRow = new();
+                TableCell NametableCell = new();
+                Paragraph Nameparagraph = new();
+                Nameparagraph.Inlines.Add($"{item.Name} ({m3md2.Parser.RelativeTime(item.Timestamp)})");
+                NametableCell.Blocks.Add(Nameparagraph);
+                NametableRow.Cells.Add(NametableCell);
+                trgNames.Rows.Add(NametableRow);
+            }
         }
 
         private void SetupScores()
@@ -33,6 +62,7 @@ namespace KeyboardMaster
                 NametableRow.Cells.Add(NametableCell);
                 trgNames.Rows.Add(NametableRow);
             }
+            timer.Start();
             #endregion
 
             #region SetupTextPerfomance

@@ -379,6 +379,7 @@
 
         <Menu x:Name="Menu" Visibility="Hidden" Grid.ColumnSpan="2" Grid.Row="0">
             <MenuItem x:Name="mLangs" Header="Изменить словарь"/>
+            <MenuItem x:Name="mTimer" Header="Изменить продолжительность" Click="mTimer_Click"/>
             <MenuItem x:Name="mTrainingMode" Header="Режим тренировки" Click="mTrainingMode_Click"/>
             <MenuItem x:Name="mRanking" Header="Ранкинг">
                 <MenuItem x:Name="mPerfomanceRanking" Header="Рейтинг производительности" Click="mPerfomanceRanking_Click"/>
