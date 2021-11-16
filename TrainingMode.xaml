@@ -18,6 +18,7 @@
             <Label x:Name="speed" Content="Текущая скорость: 0" VerticalAlignment="Center" Margin="20,330,0,0"/>
             <Label x:Name="movesCount" Content="Пройдено шагов: 0"  VerticalAlignment="Center" Margin="20,380,0,0"/>
             <Label x:Name="speedUp" Content="Повышение скорости: 0"   VerticalAlignment="Center" Margin="20,430,0,0"/>
+            <Label x:Name="timer" Content="Время: 0"   VerticalAlignment="Center"  Margin="150,375,0,0" FontSize="18"/>
         </Grid>
     </Grid>
 

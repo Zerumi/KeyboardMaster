@@ -9,6 +9,14 @@ namespace KeyboardMaster
 {
     class CorePerfomanceLogic:ICorePerfomance
     {
+        public void CorePerfomancePoints(int ACMP, int printingUniformity)
+        {
+            MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
+            int score = ACMP * printingUniformity / 100;
+            string score_output = $"Показатель производительности: {score}";
+            main.corePerfomancePoints.Content = score_output;
+            CorePerfomance.CorePerfomancePoints = score;
+        }
         #region CPMLogic
         public static int best = 0;
         public static int sumCh = 0;//Сумма символов за текущий временной промежуток
@@ -83,6 +91,7 @@ namespace KeyboardMaster
             }
             uniformitySum += result;
             string output = $"Равномерность печати {uniformitySum/counter}%";
+            CorePerfomance.printingUniformity = uniformitySum / counter;
             main.printing_uniformity.Content = output;
         }
 

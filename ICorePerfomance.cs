@@ -21,5 +21,7 @@ namespace KeyboardMaster
         void ACPM(int count);//Среднее количество символов в минуту
 
         void bestCPM(int count);//Наибольшее количество символов в минуту
+
+        void CorePerfomancePoints(int ACMP, int printingUniformity);
     }
 }

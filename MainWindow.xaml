@@ -57,7 +57,7 @@
                 <Label.Triggers>
                     <EventTrigger RoutedEvent="MediaElement.Loaded">
                         <BeginStoryboard>
-                            <Storyboard AutoReverse="True">
+                            <Storyboard AutoReverse="False">
                                 <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="0"
                                              BeginTime="0:0:4.3"
@@ -287,7 +287,7 @@
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1"
                                              BeginTime="0:0:4.8"
-                                             Duration="0:0:0.4"
+                                             Duration="0:0:0.6"
                                              >
                             </DoubleAnimation>
                         </Storyboard>
@@ -304,7 +304,7 @@
             <Label x:Name="ACPM" Content="Среднее число символов в минуту: 0" HorizontalAlignment="Center" Margin="0,104,0,0" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="avr_print_delay" Content="Средняя задержка: 0ms" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="printing_uniformity" Content="Равномерность печати: 0%" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="358"/>
-            <Label Content="CorePerfomance: 1" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Width="358"/>
+            <Label x:Name="corePerfomancePoints" Content="CorePerfomancePoints: 0" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Width="358"/>
             <Grid.Triggers>
                 <EventTrigger RoutedEvent="MediaElement.Loaded">
                     <BeginStoryboard>
@@ -312,7 +312,7 @@
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1"
                                              BeginTime="0:0:4.8"
-                                             Duration="0:0:0.4"
+                                             Duration="0:0:0.6"
                                              >
                             </DoubleAnimation>
                         </Storyboard>
@@ -341,7 +341,7 @@
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1"
                                              BeginTime="0:0:4.8"
-                                             Duration="0:0:0.4"
+                                             Duration="0:0:0.6"
                                              >
                             </DoubleAnimation>
                         </Storyboard>
@@ -369,7 +369,7 @@
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1"
                                              BeginTime="0:0:4.8"
-                                             Duration="0:0:0.4"
+                                             Duration="0:0:0.6"
                                              >
                             </DoubleAnimation>
                         </Storyboard>
