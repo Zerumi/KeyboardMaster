@@ -9,7 +9,7 @@ namespace KeyboardMaster_Server.Hubs
     [Authorize]
     public class ScoreHub : Hub
     {
-        List<Score> scores = new List<Score>();
+        static List<Score> scores = new List<Score>();
 
         public async Task SubmitScore(Score score)
         {

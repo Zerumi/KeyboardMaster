@@ -174,7 +174,7 @@ namespace KeyboardMaster
                         WrittenWordsParagraph = new Paragraph();
                         sWords = string.Empty;
                         SetupDictonaty(ConfigurationRequest.GetDictonary());
-                        new Network().SubmitScore();
+                        Network.SubmitScore();
                         lTimer.Content = ConfigurationRequest.GetTime();
                         isTimerStarted = false;
                         SetupTextBoxes();
@@ -359,10 +359,11 @@ namespace KeyboardMaster
         }
         #endregion
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lWelcome.Content = $"Подключаемся к серверу...";
             _ = AuthUser(Environment.UserName, out m3md2.StaticVariables.AuthCookie);
+            await Network.ConfigureConnection();
             lWelcome.Content = $"{Parser.GetWelcomeLabel(Parser.GetTimeDescription(DateTime.Now))}, {Environment.UserName}!";
         }
 
@@ -413,7 +414,8 @@ namespace KeyboardMaster
 
         private void mPerfomanceRanking_Click(object sender, RoutedEventArgs e)
         {
-
+            PerfomanceRanking perfomanceRanking = new PerfomanceRanking();
+            perfomanceRanking.Show();
         }
 
         private void mManage_Click(object sender, RoutedEventArgs e)
