@@ -14,5 +14,7 @@ namespace KeyboardMaster
         public static long BestLatency { get; set; }
         public static long Latency { get; set; }
         public static int AverageDelay { get; set; }
+        public static int printingUniformity { get; set; }
+        public static int CorePerfomancePoints { get; set; }
     }
 }

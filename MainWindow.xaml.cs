@@ -207,6 +207,8 @@ namespace KeyboardMaster
                         swordtime.Stop();
                         tInput.IsEnabled = false;
                         tInput.Text = "";
+                        ICorePerfomance corePerfomance = new CorePerfomanceLogic();
+                        corePerfomance.CorePerfomancePoints(CorePerfomance.AverageCPM,  CorePerfomance.printingUniformity);
                         TextPerfomance.StreakIdealWords = maxstreak;
                         TextPerfomance.WordsPerMinute = Convert.ToInt32(Math.Floor((TextPerfomance.IdealWords + TextPerfomance.ErrorWords - TextPerfomance.WrongWords) / totalmins));
                         lWPM.Content = $"Слов в минуту: {TextPerfomance.WordsPerMinute}";
