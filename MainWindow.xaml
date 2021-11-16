@@ -318,13 +318,21 @@
             <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,260,0,0"/>
         </Grid>
 
-        <Menu x:Name="Menu" Visibility="Hidden" Grid.ColumnSpan="2" Grid.Row="0">
-            <MenuItem x:Name="mManage" Header="Manage"/>
-            <MenuItem x:Name="mPerfomance" Header="Perfomance"/>
-            <MenuItem x:Name="mInfo" Header="Info"/>
+        <Menu x:Name="Menu" Visibility="Visible" Grid.ColumnSpan="2" Grid.Row="0">
+            <MenuItem x:Name="mLangs" Header="Изменить словарь">
+            </MenuItem>
+            <MenuItem x:Name="mManage" Header="Режим тренировки" Click="mManage_Click">
+            </MenuItem>
+            <MenuItem x:Name="mRanking" Header="Ранкинг">
+                <MenuItem x:Name="mPerfomanceRanking" Header="Рейтинг производительности" Click="mPerfomanceRanking_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="mInfo" Header="Информация">
+                <MenuItem x:Name="mFAQ" Header="FAQ (в разработке...)"/>
+                <MenuItem x:Name="mAbout" Header="О программе" Click="mAbout_Click"/>
+            </MenuItem>
         </Menu>
 
-        <Label x:Name="lWelcome" Visibility="Hidden" Content="Loading..." Grid.Column="1" HorizontalContentAlignment="Right" FontSize="10" VerticalAlignment="Center" Margin="4,0,120,0"/>
+        <Label x:Name="lWelcome" Visibility="Hidden" Content="Loading..." Grid.Column="1" HorizontalContentAlignment="Right" VerticalAlignment="Stretch" FontSize="9.5" Margin="4,0,120,0"/>
         <Label x:Name="lTime" Visibility="Hidden" Content="01/01/2021 12:59" Grid.Column="1" HorizontalContentAlignment="Left" FontSize="10" VerticalAlignment="Center" Margin="262,0,7,0"/>
     </Grid>
 </Window>

@@ -300,7 +300,7 @@ namespace KeyboardMaster
                 {
                     tInput.Text = OldText;
                 }
-                else if (tInput.Text.Replace(OldText, "").Length == 1) // Added 1 symbol
+                else if (tInput.Text.Replace(OldText, "").Length == 1 && tInput.Text.Replace(OldText, "") != tInput.Text) // Added 1 symbol
                 {
                     char rightchar = sWords[rightindex++]; 
                     TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
@@ -404,6 +404,21 @@ namespace KeyboardMaster
                 cookie = default;
             }
             return returnproduct;
+        }
+
+        private void mAbout_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mPerfomanceRanking_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mManage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
