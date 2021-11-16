@@ -330,24 +330,20 @@ namespace KeyboardMaster
                         if (isIdealWord && tInput.Text == currentword)
                         {
                             lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
-                            if (isStreak)
-                            {
-                                lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
-                            }
-                            else
-                            {
-                                isStreak = true;
-                            }
+                            lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
                         }
                         else if (tInput.Text != currentword)
                         {
                             lWrongWords.Content = $"Завершенные слова с опечатками: {++TextPerfomance.WrongWords}";
-                            isStreak = false;
-                            currentstreak = 0;
+                        }
+                        if (!isIdealWord || tInput.Text != currentword)
+                        {
                             if (currentstreak > maxstreak)
                             {
                                 maxstreak = currentstreak;
                             }
+                            currentstreak = 0;
+                            lIdealWordStreak.Content = $"Серия идеально написанных слов: {currentstreak}";
                         }
                         if (tInput.Text == currentword)
                         {
@@ -416,24 +412,20 @@ namespace KeyboardMaster
                         if (isIdealWord)
                         {
                             lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
-                            if (isStreak)
-                            {
-                                lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
-                            }
-                            else
-                            {
-                                isStreak = true;
-                            }
+                            lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
                         }
                         else if (tInput.Text != currentword)
                         {
                             lWrongWords.Content = $"Завершенные слова с опечатками: {++TextPerfomance.WrongWords}";
-                            isStreak = false;
-                            currentstreak = 0;
+                        }
+                        if (!isIdealWord || tInput.Text != currentword)
+                        {
                             if (currentstreak > maxstreak)
                             {
                                 maxstreak = currentstreak;
                             }
+                            currentstreak = 0;
+                            lIdealWordStreak.Content = $"Серия идеально написанных слов: {currentstreak}";
                         }
                         if (tInput.Text == currentword)
                         {

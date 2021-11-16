@@ -57,7 +57,11 @@ namespace KeyboardMaster
                         IdealWords = TextPerfomance.IdealWords,
                         IncorrectChars = TextPerfomance.IncorrectChars,
                         WordsPerMinute = TextPerfomance.WordsPerMinute,
-                        WrongWords = TextPerfomance.WrongWords
+                        WrongWords = TextPerfomance.WrongWords,
+                        AverageWPM = TextPerfomance.AverageWPM,
+                        StreakIdealWords = TextPerfomance.StreakIdealWords,
+                        WordAccuracy = TextPerfomance.WordAccuracy,
+                        TextPerfomancePoints = TextPerfomance.TextPerfomancePoints
                     },
                     corePerfomance = new nCorePerfomance()
                     {
