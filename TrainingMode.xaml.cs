@@ -41,12 +41,12 @@ namespace KeyboardMaster
             {
                 ITrainingModeLogic trainingMode = new TrainingModeLogic(this);
                 trainingMode.Start(int.Parse(item.Content.ToString()));
+                startBut.IsEnabled = false;
             }
             else
             {
                 MessageBox.Show("Выберите уровень сложности");
             }
-            startBut.IsEnabled = false;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

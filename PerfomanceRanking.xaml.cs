@@ -344,5 +344,11 @@ namespace KeyboardMaster
         {
             MessageBox.Show("В таблице CorePerfomance 8 значений, вот их список:\nCPM (Chars Per Minute) - кол-во знаков в минуту\nBcM (Best CPM) - лучший показатель символов в минуту\nAcM (Average CPM) - средний показатель символов в минуту\nBLt (Best Latency) - наименьшая задержка печати\nLat (Latency) - задержка печати\nAdL (Average Delay) - средняя задержка печати\nPuF (Print Uniformity) - Равномерность печати\nCpp (CorePerfomancePoints) - Показатель производительности CorePerfomance");
         }
+
+        private void media_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            media.Position = new TimeSpan(0,0,0);
+            media.Play();
+        }
     }
 }

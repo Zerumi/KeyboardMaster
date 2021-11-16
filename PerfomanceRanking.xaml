@@ -15,6 +15,7 @@
             <RowDefinition Height="23*"/>
             <RowDefinition Height="390*"/>
         </Grid.RowDefinitions>
+        <MediaElement x:Name="media" MediaEnded="media_MediaEnded" Stretch="Fill" Opacity="0.4" UnloadedBehavior="Manual" Visibility="Visible" Margin="0" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
         <RichTextBox x:Name="rtbUsernames" Grid.Row="2" IsReadOnly="True">
             <FlowDocument>
