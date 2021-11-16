@@ -38,5 +38,15 @@ namespace KeyboardMaster
         {
             return GetValueByKey("Time");
         }
+
+        internal static void SaveDictonary(string v)
+        {
+            WriteValueByKey("Lang", v);
+        }
+
+        internal static void SaveTime(string text)
+        {
+            WriteValueByKey("Time", text);
+        }
     }
 }

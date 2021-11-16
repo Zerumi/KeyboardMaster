@@ -45,6 +45,7 @@ namespace KeyboardMaster
                         return;
                     }
                     Close();
+                    ConfigurationRequest.SaveTime(tbTime.Text);
                     (App.Current.MainWindow as MainWindow).lTimer.Content = tbTime.Text;
                 }
                 else

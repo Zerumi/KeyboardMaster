@@ -112,7 +112,8 @@ namespace KeyboardMaster
 
         private void Temp_Click(object sender, RoutedEventArgs e)
         {
-            switch ((LanguageDictonary)Enum.Parse(typeof(LanguageDictonary), (sender as FrameworkElement).Name))
+            LanguageDictonary dictonary = (LanguageDictonary)Enum.Parse(typeof(LanguageDictonary), (sender as FrameworkElement).Name);
+            switch (dictonary)
             {
                 case LanguageDictonary.RU:
                     SetupDictonaty(new RuDictonary());
@@ -123,6 +124,8 @@ namespace KeyboardMaster
                 default:
                     break;
             }
+
+            ConfigurationRequest.SaveDictonary(dictonary.ToString());
 
             SetupTextBoxes();
         }
@@ -200,7 +203,7 @@ namespace KeyboardMaster
             {
                 if (mins-- == 0) // block UI, refreshing
                 {
-                    await Dispatcher.BeginInvoke(new Action(async() =>
+                    await Dispatcher.BeginInvoke(new Action(async () =>
                     {
                         tInput.TextChanged -= tInput_TextChanged;
                         timer.Stop();
@@ -209,7 +212,7 @@ namespace KeyboardMaster
                         mTimer.IsEnabled = true;
                         tInput.Text = "";
                         ICorePerfomance corePerfomance = new CorePerfomanceLogic();
-                        corePerfomance.CorePerfomancePoints(CorePerfomance.AverageCPM,  CorePerfomance.printingUniformity);
+                        corePerfomance.CorePerfomancePoints(CorePerfomance.AverageCPM, CorePerfomance.printingUniformity);
                         TextPerfomance.StreakIdealWords = maxstreak;
                         TextPerfomance.WordsPerMinute = Convert.ToInt32(Math.Floor((TextPerfomance.IdealWords + TextPerfomance.ErrorWords) / totalmins));
                         lWPM.Content = $"Слов в минуту: {TextPerfomance.WordsPerMinute}";
@@ -239,7 +242,7 @@ namespace KeyboardMaster
                 lTimer.Content = $"{mins}:{--secs}";
             }));
         }
-#endregion
+        #endregion
 
         #region TextInputLogic
         private int rightindex = 0;
@@ -388,7 +391,7 @@ namespace KeyboardMaster
                 }
                 else if (tInput.Text == string.Empty && !isFromNewWord) // Ctrl + A -> Delete
                 {
-                    rightindex -= OldText.Length; 
+                    rightindex -= OldText.Length;
                     TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
                     textRange.ApplyPropertyValue(ForegroundProperty, Brushes.Black);
                 }
@@ -402,9 +405,9 @@ namespace KeyboardMaster
                 }
                 else if (tInput.Text.Replace(OldText, "").Length == 1 && tInput.Text.Replace(OldText, "") != tInput.Text) // Added 1 symbol
                 {
-                    char rightchar = sWords[rightindex++]; 
+                    char rightchar = sWords[rightindex++];
                     TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
-                    
+
                     if (tInput.Text.Replace(OldText, "") == " ") // Word ended
                     {
                         double totalsecs = swordtime.Elapsed.TotalMilliseconds / 1000;
@@ -432,9 +435,9 @@ namespace KeyboardMaster
                         }
                         if (tInput.Text == currentword)
                         {
-                            double wordtime = totalsecs - lasttimervalue;
+                            TextPerfomance.wordtime = totalsecs - lasttimervalue;
                             int wordlength = currentword.Length;
-                            TextPerfomance.AverageWPM = (int)Math.Round((double)((double)wordlength / ConfigurationRequest.GetDictonary().AverageLettersInWords) * (1 / (double)wordtime) * 60);
+                            TextPerfomance.AverageWPM = (int)Math.Round((double)((double)wordlength / ConfigurationRequest.GetDictonary().AverageLettersInWords) * (1 / TextPerfomance.wordtime) * 60);
                             lAverageWPM.Content = $"В среднем слов в минуту: {TextPerfomance.AverageWPM}";
                         }
                         lasttimervalue = totalsecs;
@@ -517,14 +520,6 @@ namespace KeyboardMaster
             perfomanceRanking.Show();
         }
 
-        TrainingMode trainingMode = default;
-
-        private void mTrainingMode_Click(object sender, RoutedEventArgs e)
-        {
-            trainingMode = new TrainingMode();
-            trainingMode.Show();
-        }
-
         private void media3_MediaEnded(object sender, RoutedEventArgs e)
         {
             media3.Position = new TimeSpan(0, 0, 1);
@@ -544,7 +539,7 @@ namespace KeyboardMaster
                 };
                 HttpClient client = new HttpClient(handler)
                 {
-                    BaseAddress = new Uri(m3md2.StaticVariables.BaseServerAddress)
+                    BaseAddress = new Uri(StaticVariables.BaseServerAddress)
                 };
                 client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
