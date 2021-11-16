@@ -22,6 +22,13 @@ namespace KeyboardMaster
         public TrainingMode()
         {
             InitializeComponent();
+            media.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d3.gif");
+        }
+
+        private void media_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            media.Position = new TimeSpan(0,0,1);
+            media.Play();
         }
     }
 }

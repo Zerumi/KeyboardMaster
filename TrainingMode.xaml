@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KeyboardMaster"
         mc:Ignorable="d"
-        Title="TrainingMode" Height="450" Width="800">
+        Title="TrainingMode" Height="510" Width="300" ResizeMode="CanMinimize">
     <Grid>
-        
+        <Grid x:Name="backgroundGIF">
+            <MediaElement x:Name="media" Visibility="Visible" Opacity="0.6" UnloadedBehavior="Manual" MediaEnded="media_MediaEnded"  Stretch="Fill" Margin="0"/>
+        </Grid>
+            <Grid x:Name="frontEnd">
+            <Rectangle Stroke="Black" StrokeThickness="2.5" Opacity="0.5" Width="250" Height="350" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,30,0,0"/>
+        </Grid>
+        <TextBlock x:Name="charLb" Text="A" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="200" Margin="0,40,0,0"/>
+        <Grid x:Name="stats">
+            <Label x:Name="speed" Content="Текущая скорость: 0" VerticalAlignment="Center" Margin="20,330,0,0"/>
+            <Label x:Name="movesCount" Content="Пройдено шагов: 0"  VerticalAlignment="Center" Margin="20,380,0,0"/>
+            <Label x:Name="speedUp" Content="Повышение скорости: 0"   VerticalAlignment="Center" Margin="20,430,0,0"/>
+        </Grid>
     </Grid>
+
 </Window>
