@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -209,6 +210,7 @@ namespace KeyboardMaster
                         timer.Stop();
                         swordtime.Stop();
                         tInput.IsEnabled = false;
+                        mLangs.IsEnabled = true;
                         mTimer.IsEnabled = true;
                         tInput.Text = "";
                         ICorePerfomance corePerfomance = new CorePerfomanceLogic();
@@ -269,6 +271,7 @@ namespace KeyboardMaster
                 if (!isTimerStarted) // starts new test
                 {
                     mTimer.IsEnabled = false;
+                    mLangs.IsEnabled = false;
                     CorePerfomanceLogic.best = 0;
                     CorePerfomanceLogic.sumCh = 0;
                     CorePerfomanceLogic.counter = 1;//Обнуление значений перед началом нового сбора данных
@@ -503,6 +506,7 @@ namespace KeyboardMaster
         {
             MessageBox.Show($"Keyboard Master by CrutchGroup\nMade for Samara IT Hackaton by IT Cube 15-16/11/2021\nVersion 1.0 stable\nKeyboardMaster-server v.1.0 stable\nMade by Zerumi & PizhikCoder (Discord: Zerumi#4666 / PizhikCoder#4565)\nGitHub: https://github.com/Zerumi \nGitHub: https://github.com/PizhikCoder");
         }
+
         public TrainingMode trainingMode = default;
 
         private void mTrainingMode_Click(object sender, RoutedEventArgs e)

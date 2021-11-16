@@ -27,6 +27,7 @@ namespace KeyboardMaster
         public static Stopwatch watch = new Stopwatch();
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            System.Windows.Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
             if (m_globalHook == null)//Оформляем событие по вытягиванию нажатых клавиш
             {
                 m_globalHook = Hook.GlobalEvents();
