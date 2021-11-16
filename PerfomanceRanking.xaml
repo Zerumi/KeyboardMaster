@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Online Perfomance Ranking" Height="450" Width="1000" ResizeMode="CanMinimize">
+        Title="Online Perfomance Ranking" Height="450" Width="1100" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -17,163 +17,172 @@
         </Grid.RowDefinitions>
         <MediaElement x:Name="media" MediaEnded="media_MediaEnded" Stretch="Fill" Opacity="0.4" UnloadedBehavior="Manual" Visibility="Visible" Margin="0" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
-        <RichTextBox x:Name="rtbUsernames" Grid.Row="2" IsReadOnly="True">
-            <FlowDocument>
-                <Table>
-                    <TableRowGroup x:Name="trgNames">
-                        <TableRow>
-                            <TableCell>
-                                <Paragraph>
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="16*"/>
+                    <ColumnDefinition Width="11*"/>
+                </Grid.ColumnDefinitions>
+                <RichTextBox x:Name="rtbUsernames" Grid.Row="2" IsReadOnly="True">
+                    <FlowDocument>
+                        <Table>
+                            <TableRowGroup x:Name="trgNames">
+                                <TableRow>
+                                    <TableCell>
+                                        <Paragraph>
 
-                                </Paragraph>
-                            </TableCell>
-                        </TableRow>
-                    </TableRowGroup>
-                </Table>
-            </FlowDocument>
-        </RichTextBox>
+                                        </Paragraph>
+                                    </TableCell>
+                                </TableRow>
+                            </TableRowGroup>
+                        </Table>
+                    </FlowDocument>
+                </RichTextBox>
 
-        <RichTextBox x:Name="rtbTextPerfomance" Grid.Column="1" Grid.Row="2" IsReadOnly="True">
-            <FlowDocument>
-                <Table>
-                    <Table.Columns>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                    </Table.Columns>
+                <RichTextBox x:Name="rtbTextPerfomance" Grid.Column="1" Grid.Row="2" IsReadOnly="True">
+                    <FlowDocument>
+                        <Table>
+                            <Table.Columns>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                            </Table.Columns>
 
-                    <TableRowGroup x:Name="trgTextPerfomance">
-                        <TableRow>
-                            <TableCell>
-                                <Paragraph>
-                                    CC
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    InC
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    Acc
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    IW
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    EW
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    WW
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    WPM
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    AvM
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    SIW
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    WAc
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    Tpp
-                                </Paragraph>
-                            </TableCell>
-                        </TableRow>
-                    </TableRowGroup>
-                </Table>
-            </FlowDocument>
-        </RichTextBox>
+                            <TableRowGroup x:Name="trgTextPerfomance">
+                                <TableRow>
+                                    <TableCell>
+                                        <Paragraph>
+                                            CC
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            InC
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            Acc
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            IW
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            EW
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            WW
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            WPM
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            AvM
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            SIW
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            WAc
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            Tpp
+                                        </Paragraph>
+                                    </TableCell>
+                                </TableRow>
+                            </TableRowGroup>
+                        </Table>
+                    </FlowDocument>
+                </RichTextBox>
 
-        <RichTextBox Grid.Column="2" Grid.Row="1">
-            <FlowDocument>
-                <Table>
-                    <Table.Columns>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                    </Table.Columns>
+                <RichTextBox Grid.Column="2" Grid.Row="1">
+                    <FlowDocument>
+                        <Table>
+                            <Table.Columns>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                                <TableColumn/>
+                            </Table.Columns>
 
-                    <TableRowGroup x:Name="trgCorePerfomance">
-                        <TableRow>
-                            <TableCell>
-                                <Paragraph>
-                                    CPM
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    BcM
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    AcM
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    BLt
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    Lat
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    AdL
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    PuF
-                                </Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph>
-                                    Cpp
-                                </Paragraph>
-                            </TableCell>
-                        </TableRow>
-                    </TableRowGroup>
-                </Table>
-            </FlowDocument>
-        </RichTextBox>
+                            <TableRowGroup x:Name="trgCorePerfomance">
+                                <TableRow>
+                                    <TableCell>
+                                        <Paragraph>
+                                            CPM
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            BcM
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            AcM
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            BLt
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            Lat
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            AdL
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            PuF
+                                        </Paragraph>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Paragraph>
+                                            Cpp
+                                        </Paragraph>
+                                    </TableCell>
+                                </TableRow>
+                            </TableRowGroup>
+                        </Table>
+                    </FlowDocument>
+                </RichTextBox>
+            </Grid>
+        </ScrollViewer>
 
         <Label Content="TextPerfomance" Grid.Column="1" HorizontalAlignment="Left" FontSize="10.5" VerticalAlignment="Center"/>
         <Label Content="CorePerfomance" Grid.Column="2" HorizontalAlignment="Left" FontSize="10.5" VerticalAlignment="Center"/>

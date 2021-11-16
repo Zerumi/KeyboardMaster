@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardMaster", "KeyboardM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "m3md2", "m3md2\m3md2.csproj", "{DEC7AD4F-25B2-41D2-94FE-6CD2304718C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyboardMaster-Server", "KeyboardMaster-Server\KeyboardMaster-Server.csproj", "{AA63D636-0DF2-4DE7-A496-2935AC07CA23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KeyboardMaster-Server", "KeyboardMaster-Server\KeyboardMaster-Server.csproj", "{AA63D636-0DF2-4DE7-A496-2935AC07CA23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,12 +19,12 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Debug|x86.Build.0 = Debug|Any CPU
+		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Debug|x86.ActiveCfg = Debug|x86
+		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Debug|x86.Build.0 = Debug|x86
 		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Release|x86.ActiveCfg = Release|Any CPU
-		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Release|x86.Build.0 = Release|Any CPU
+		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Release|x86.ActiveCfg = Release|x86
+		{DEB5A813-14E4-40C9-8EE4-E366816F124F}.Release|x86.Build.0 = Release|x86
 		{DEC7AD4F-25B2-41D2-94FE-6CD2304718C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DEC7AD4F-25B2-41D2-94FE-6CD2304718C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC7AD4F-25B2-41D2-94FE-6CD2304718C0}.Debug|x86.ActiveCfg = Debug|x86
@@ -35,12 +35,12 @@ Global
 		{DEC7AD4F-25B2-41D2-94FE-6CD2304718C0}.Release|x86.Build.0 = Release|x86
 		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Debug|x86.Build.0 = Debug|Any CPU
+		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Debug|x86.ActiveCfg = Debug|x86
+		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Debug|x86.Build.0 = Debug|x86
 		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Release|x86.ActiveCfg = Release|Any CPU
-		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Release|x86.Build.0 = Release|Any CPU
+		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Release|x86.ActiveCfg = Release|x86
+		{AA63D636-0DF2-4DE7-A496-2935AC07CA23}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
