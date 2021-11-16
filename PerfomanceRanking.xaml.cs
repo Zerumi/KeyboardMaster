@@ -334,5 +334,15 @@ namespace KeyboardMaster
 
             trgCorePerfomance.Rows.Add(CPtableRow);
         }
+
+        private void TpInfo_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("В таблице TextPerfomance 11 значений, вот их список:\nCC (CorrectChars) - Правильно напечатанные символы\nInC (IncorrectChars) - Неправильно напечатанные символы\nAcc (Accuracy) - Аккуратность\nIW (IdealWords) - идеальные слова\nEW (ErrorWords) - слова, во время написания которых была допущена опечатка (которая была исправлена позднее)\nWW (WrongWords) - завершенные слова с опечатками\nWPM (Words Per Minute) - количество слов в минуту\nAvM (Average WPM) - Среднее кол-во слов в минуту\nSiW (Streak of Ideal Words) - Максимальная серия идеально написанных слов\nWAc (Word Accuracy) - Аккуратность написания слов\nTpp (TextPerfomancePoints) - Показатель производительности TextPerfomance");
+        }
+
+        private void CpInfo_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("В таблице CorePerfomance 8 значений, вот их список:\nCPM (Chars Per Minute) - кол-во знаков в минуту\nBcM (Best CPM) - лучший показатель символов в минуту\nAcM (Average CPM) - средний показатель символов в минуту\nBLt (Best Latency) - наименьшая задержка печати\nLat (Latency) - задержка печати\nAdL (Average Delay) - средняя задержка печати\nPuF (Print Uniformity) - Равномерность печати\nCpp (CorePerfomancePoints) - Показатель производительности CorePerfomance");
+        }
     }
 }

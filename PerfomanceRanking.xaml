@@ -23,7 +23,7 @@
                         <TableRow>
                             <TableCell>
                                 <Paragraph>
-                                     
+
                                 </Paragraph>
                             </TableCell>
                         </TableRow>
@@ -111,7 +111,7 @@
                 </Table>
             </FlowDocument>
         </RichTextBox>
-        
+
         <RichTextBox Grid.Column="2" Grid.Row="1">
             <FlowDocument>
                 <Table>
@@ -177,5 +177,7 @@
         <Label Content="TextPerfomance" Grid.Column="1" HorizontalAlignment="Left" FontSize="10.5" VerticalAlignment="Center"/>
         <Label Content="CorePerfomance" Grid.Column="2" HorizontalAlignment="Left" FontSize="10.5" VerticalAlignment="Center"/>
         <Label Content="Username" Grid.Column="0" HorizontalAlignment="Left" FontSize="10.5" VerticalAlignment="Center"/>
+        <Button x:Name="TpInfo" Content="?" Grid.Column="1" HorizontalAlignment="Right" Margin="0,1,10,1" Click="TpInfo_Click" Width="35"/>
+        <Button x:Name="CpInfo" Content="?" Grid.Column="2" HorizontalAlignment="Right" Margin="0,1,10,1" VerticalAlignment="Stretch" Click="CpInfo_Click" Width="35"/>
     </Grid>
 </Window>

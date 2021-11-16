@@ -303,7 +303,7 @@
             <Label x:Name="ACPM" Content="Среднее число символов в минуту: 0" HorizontalAlignment="Center" Margin="0,104,0,0" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="avr_print_delay" Content="Средняя задержка: 0ms" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="printing_uniformity" Content="Равномерность печати: 0%" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="358"/>
-            <Label x:Name="corePerfomancePoints" Content="CorePerfomancePoints: 0" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Width="358"/>
+            <Label x:Name="corePerfomancePoints" Content="Показатель производительности: 0" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Width="358"/>
             <Grid.Triggers>
                 <EventTrigger RoutedEvent="MediaElement.Loaded">
                     <BeginStoryboard>
@@ -385,7 +385,6 @@
                 <MenuItem x:Name="mPerfomanceRanking" Header="Рейтинг производительности" Click="mPerfomanceRanking_Click"/>
             </MenuItem>
             <MenuItem x:Name="mInfo" Header="Информация">
-                <MenuItem x:Name="mFAQ" Header="FAQ (в разработке...)"/>
                 <MenuItem x:Name="mAbout" Header="О программе" Click="mAbout_Click"/>
             </MenuItem>
         </Menu>

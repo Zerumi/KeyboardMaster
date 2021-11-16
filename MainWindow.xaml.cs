@@ -518,6 +518,7 @@ namespace KeyboardMaster
                 ShowActivated = true
             };
             perfomanceRanking.Show();
+            perfomanceRanking.Activate();
         }
 
         private void media3_MediaEnded(object sender, RoutedEventArgs e)
