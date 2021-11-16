@@ -22,14 +22,14 @@
                 </MediaElement>
             </Grid>
 
-            <MediaElement x:Name="media2" Visibility="Hidden" Opacity="0.4" UnloadedBehavior="Manual"  Stretch="Fill" Margin="0">
+            <MediaElement x:Name="media2" Visibility="Hidden" Opacity="0.7" UnloadedBehavior="Manual"  Stretch="Fill" Margin="0">
                 <MediaElement.Triggers>
                     <EventTrigger RoutedEvent="MediaElement.Loaded">
                         <BeginStoryboard>
                             <Storyboard AutoReverse="True">
                                 <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="0"
-                                             BeginTime="0:0:4.3"
+                                             BeginTime="0:0:3.8"
                                              Duration="0:0:0.5">
                                 </DoubleAnimation>
                             </Storyboard>
@@ -45,7 +45,7 @@
                                 <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="0"
                                              BeginTime="0:0:2.1"
-                                             Duration="0:0:2.8">
+                                             Duration="0:0:2.2">
                                 </DoubleAnimation>
                             </Storyboard>
                         </BeginStoryboard>
@@ -59,7 +59,7 @@
                             <Storyboard AutoReverse="False">
                                 <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="0"
-                                             BeginTime="0:0:4.3"
+                                             BeginTime="0:0:3.8"
                                              Duration="0:0:0.5"
                                              >
                                 </DoubleAnimation>
@@ -285,8 +285,8 @@
                         <Storyboard AutoReverse="False">
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1"
-                                             BeginTime="0:0:4.8"
-                                             Duration="0:0:0.6"
+                                             BeginTime="0:0:4.3"
+                                             Duration="0:0:0.3"
                                              >
                             </DoubleAnimation>
                         </Storyboard>
@@ -310,8 +310,8 @@
                         <Storyboard AutoReverse="False">
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1"
-                                             BeginTime="0:0:4.8"
-                                             Duration="0:0:0.6"
+                                             BeginTime="0:0:4.4"
+                                             Duration="0:0:0.3"
                                              >
                             </DoubleAnimation>
                         </Storyboard>
@@ -339,8 +339,8 @@
                         <Storyboard AutoReverse="False">
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1"
-                                             BeginTime="0:0:4.8"
-                                             Duration="0:0:0.6"
+                                             BeginTime="0:0:4.5"
+                                             Duration="0:0:0.3"
                                              >
                             </DoubleAnimation>
                         </Storyboard>
@@ -367,8 +367,8 @@
                         <Storyboard AutoReverse="False">
                             <DoubleAnimation Storyboard.TargetProperty="Opacity"
                                              To="1"
-                                             BeginTime="0:0:4.8"
-                                             Duration="0:0:0.6"
+                                             BeginTime="0:0:4.6"
+                                             Duration="0:0:0.3"
                                              >
                             </DoubleAnimation>
                         </Storyboard>

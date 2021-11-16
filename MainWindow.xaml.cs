@@ -83,7 +83,7 @@ namespace KeyboardMaster
         {
             timer1.Tick += timer_tick;
 
-            timer1.Interval = new TimeSpan(0, 0, 0, 4, 800);
+            timer1.Interval = new TimeSpan(0, 0, 0, 4, 300);
 
             timer1.Start();
 
