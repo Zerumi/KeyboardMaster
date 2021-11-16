@@ -32,21 +32,22 @@ namespace KeyboardMaster
         {
             InitializeComponent();
             lWelcome.Content = $"Загрузка...";
-            SetupDictonaty(ConfigurationRequest.GetDictonary());
-            SetupTextBoxes();
-            SetupTimer();
             //Путь к гиф
             media.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d1.gif");
             media2.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d2.gif");
             media3.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d2.gif");
             //Метод инициализации таймера
-            Loading();
+            LoadingScreenSetup();
+            SetupDictonaries();
+            SetupDictonaty(ConfigurationRequest.GetDictonary());
+            SetupTextBoxes();
+            SetupTimer();
             charsPerMinute charsPerMinute = new charsPerMinute();
             charsPerMinute.Activate();
             _ = tInput.Focus();
         }
 
-        #region Dictonary & TextBoxes
+        #region AnimationScreen
         DispatcherTimer timer1 = new DispatcherTimer();
         DispatcherTimer timer2 = new DispatcherTimer();
         private void timer_tick(object sender, EventArgs e)
@@ -76,7 +77,7 @@ namespace KeyboardMaster
             loadLabel.Visibility = Visibility.Visible;
             timer2.Stop();
         }
-        void Loading()
+        void LoadingScreenSetup()
         {
             timer1.Tick += timer_tick;
 
@@ -90,8 +91,46 @@ namespace KeyboardMaster
 
             timer2.Start();
         }
+        #endregion
+
+        #region Dictonary & TextBoxes
+        private void SetupDictonaries()
+        {
+            for (int i = 0; i < Enum.GetNames(typeof(LanguageDictonary)).Length; i++)
+            {
+                string tempname = Enum.GetNames(typeof(LanguageDictonary))[i];
+                MenuItem temp = new MenuItem()
+                {
+                    Name = tempname,
+                    Header = tempname
+                };
+                temp.Click += Temp_Click;
+                mLangs.Items.Add(temp);
+            }
+        }
+
+        private void Temp_Click(object sender, RoutedEventArgs e)
+        {
+            switch ((LanguageDictonary)Enum.Parse(typeof(LanguageDictonary), (sender as FrameworkElement).Name))
+            {
+                case LanguageDictonary.RU:
+                    SetupDictonaty(new RuDictonary());
+                    break;
+                case LanguageDictonary.EN:
+                    SetupDictonaty(new EnDictonary());
+                    break;
+                default:
+                    break;
+            }
+
+            SetupTextBoxes();
+        }
+
         private void SetupDictonaty(IDictonary dictonary)
         {
+            TextRange textRange = new(tbWords.Document.ContentStart, tbWords.Document.ContentEnd);
+            textRange.Text = "";
+
             Random random = new(unchecked((int)DateTime.Now.Ticks));
 
             List<int> indexes = new();
@@ -294,7 +333,9 @@ namespace KeyboardMaster
                 }
                 else if (tInput.Text == string.Empty && !isFromNewWord) // Ctrl + A -> Delete
                 {
-                    rightindex -= OldText.Length;
+                    rightindex -= OldText.Length; 
+                    TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
+                    textRange.ApplyPropertyValue(ForegroundProperty, Brushes.Black);
                 }
                 else if (tInput.Text.Replace(OldText, "").Length > 1 && tInput.Text.Replace(OldText, "") != tInput.Text) // Ctrl + V something
                 {
@@ -353,6 +394,12 @@ namespace KeyboardMaster
                 else if (OldText.Replace(tInput.Text, "").Length == 1) // Removed 1 symbol
                 {
                     --rightindex;
+                    TextRange textRange = new(tbWords.Document.ContentStart, tbWords.CaretPosition.GetPositionAtOffset(currentword.Length));
+
+                    if (tInput.Text == currentword.Substring(0, rightindex))
+                    {
+                        textRange.ApplyPropertyValue(ForegroundProperty, Brushes.Black);
+                    }
                 }
                 OldText = tInput.Text;
             }
@@ -369,6 +416,29 @@ namespace KeyboardMaster
             _ = AuthUser(Environment.UserName, out m3md2.StaticVariables.AuthCookie);
             await Network.ConfigureConnection();
             lWelcome.Content = $"{Parser.GetWelcomeLabel(Parser.GetTimeDescription(DateTime.Now))}, {Environment.UserName}!";
+        }
+
+        private void mAbout_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show($"Keyboard Master by CrutchGroup\nMade for Samara IT Hackaton by IT Cube 15-16/11/2021\nVersion 1.0 stable\nKeyboardMaster-server v.1.0 stable\nMade by Zerumi & PizhikCoder (Discord: Zerumi#4666 / PizhikCoder#4565)\nGitHub: https://github.com/Zerumi \nGitHub: https://github.com/PizhikCoder");
+        }
+
+        private void mPerfomanceRanking_Click(object sender, RoutedEventArgs e)
+        {
+            PerfomanceRanking perfomanceRanking = new PerfomanceRanking();
+            perfomanceRanking.Show();
+        }
+
+        private void mTrainingMode_Click(object sender, RoutedEventArgs e)
+        {
+            TrainingMode trainingMode = new TrainingMode();
+            trainingMode.Show();
+        }
+
+        private void media3_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            media3.Position = new TimeSpan(0, 0, 1);
+            media3.Play();
         }
 
         public static Client AuthUser(string username, out Cookie cookie) // метод для авторизации на сервере
@@ -409,28 +479,6 @@ namespace KeyboardMaster
                 cookie = default;
             }
             return returnproduct;
-        }
-
-        private void mAbout_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void mPerfomanceRanking_Click(object sender, RoutedEventArgs e)
-        {
-            PerfomanceRanking perfomanceRanking = new PerfomanceRanking();
-            perfomanceRanking.Show();
-        }
-
-        private void mManage_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void media3_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            media3.Position = new TimeSpan(0, 0, 1);
-            media3.Play();
         }
     }
 }
