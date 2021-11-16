@@ -16,6 +16,7 @@ namespace KeyboardMaster
         public PerfomanceRanking()
         {
             InitializeComponent();
+            //media.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d2.gif");
             timer.Tick += Timer_Tick;
             timer.Interval = TimeSpan.FromMinutes(1);
             SetupScores();
@@ -347,7 +348,7 @@ namespace KeyboardMaster
 
         private void media_MediaEnded(object sender, RoutedEventArgs e)
         {
-            media.Position = new TimeSpan(0,0,0);
+            media.Position = new TimeSpan(0, 0, 1);
             media.Play();
         }
     }
