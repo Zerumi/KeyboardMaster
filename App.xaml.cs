@@ -17,6 +17,8 @@ namespace KeyboardMaster
     /// </summary>
     public partial class App : System.Windows.Application
     {
+        static ICorePerfomance corePerfomance = new CorePerfomanceLogic();
+        public static Cookie AuthCookie;
         public static long best_latency = long.MaxValue;
         public static int sum = 0;
         public static int counter = 1;
@@ -37,9 +39,23 @@ namespace KeyboardMaster
         private void GlobalHookKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)//Обработчик собыьтия по вытягиванию нажатых клавиш
         {
             MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
+
             if (watch.IsRunning)//Запущен ли секундомер для проверки задержки
             {
                 watch.Stop();
+
+                corePerfomance.print_delay((int)watch.ElapsedMilliseconds);
+
+                corePerfomance.bestLatency((int)watch.ElapsedMilliseconds);
+
+                CorePerfomanceLogic.sum += (int)watch.ElapsedMilliseconds;
+
+                corePerfomance.avrPrintDelay();
+
+                corePerfomance.printingUniformity((int)watch.ElapsedMilliseconds);
+
+                CorePerfomanceLogic.counter++;
+                CorePerfomanceLogic.lastLatency = (int)watch.ElapsedMilliseconds;
                 CorePerfomance.Latency = watch.ElapsedMilliseconds;
                 string output = $"Задержка печати: {watch.ElapsedMilliseconds}ms";
                 if (best_latency>watch.ElapsedMilliseconds && watch.ElapsedMilliseconds!=0) //Лучшая задержка
@@ -69,7 +85,6 @@ namespace KeyboardMaster
         {
             highlightingKeys.keyUpped(e.KeyData.ToString());
         }
-
 
         private void GlobalHookKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
