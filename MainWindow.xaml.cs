@@ -206,11 +206,12 @@ namespace KeyboardMaster
                         timer.Stop();
                         swordtime.Stop();
                         tInput.IsEnabled = false;
+                        mTimer.IsEnabled = true;
                         tInput.Text = "";
                         ICorePerfomance corePerfomance = new CorePerfomanceLogic();
                         corePerfomance.CorePerfomancePoints(CorePerfomance.AverageCPM,  CorePerfomance.printingUniformity);
                         TextPerfomance.StreakIdealWords = maxstreak;
-                        TextPerfomance.WordsPerMinute = Convert.ToInt32(Math.Floor((TextPerfomance.IdealWords + TextPerfomance.ErrorWords - TextPerfomance.WrongWords) / totalmins));
+                        TextPerfomance.WordsPerMinute = Convert.ToInt32(Math.Floor((TextPerfomance.IdealWords + TextPerfomance.ErrorWords) / totalmins));
                         lWPM.Content = $"Слов в минуту: {TextPerfomance.WordsPerMinute}";
                         lIdealWordStreak.Content = $"Серия идеально написанных слов: {maxstreak}";
                         tbWords.Document.Blocks.Clear();
@@ -252,7 +253,6 @@ namespace KeyboardMaster
         private bool isIdealWord = true;
         private string currentword = string.Empty;
         private bool isTimerStarted = false;
-        private bool isStreak = true;
         private int currentstreak = 0;
         private int maxstreak = 0;
         private double lasttimervalue = 0;
@@ -265,6 +265,7 @@ namespace KeyboardMaster
             {
                 if (!isTimerStarted) // starts new test
                 {
+                    mTimer.IsEnabled = false;
                     CorePerfomanceLogic.best = 0;
                     CorePerfomanceLogic.sumCh = 0;
                     CorePerfomanceLogic.counter = 1;//Обнуление значений перед началом нового сбора данных
@@ -280,7 +281,8 @@ namespace KeyboardMaster
                     CPM.Content = $"Символов в минуту: {0}";
                     ACPM.Content = $"Среднее число символов в минуту: {0}";
                     best_CPM.Content = $"Лучшее число символов в минуту: {0}";
-                    printing_uniformity.Content = $"Равномерность печати: {0}";
+                    printing_uniformity.Content = $"Равномерность печати: {0}%";
+                    corePerfomancePoints.Content = $"Показатель производительности: {0}";
 
                     TextPerfomance.IdealWords = 0;
                     TextPerfomance.AverageWPM = 0;
@@ -330,33 +332,30 @@ namespace KeyboardMaster
                         if (isIdealWord && tInput.Text == currentword)
                         {
                             lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
-                            if (isStreak)
-                            {
-                                lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
-                            }
-                            else
-                            {
-                                isStreak = true;
-                            }
+                            lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
                         }
                         else if (tInput.Text != currentword)
                         {
                             lWrongWords.Content = $"Завершенные слова с опечатками: {++TextPerfomance.WrongWords}";
-                            isStreak = false;
-                            currentstreak = 0;
+                        }
+                        if (!isIdealWord || tInput.Text != currentword)
+                        {
                             if (currentstreak > maxstreak)
                             {
                                 maxstreak = currentstreak;
                             }
+                            currentstreak = 0;
+                            lIdealWordStreak.Content = $"Серия идеально написанных слов: {currentstreak}";
                         }
                         if (tInput.Text == currentword)
                         {
-                            double wordtime = totalsecs - lasttimervalue;
+                            TextPerfomance.wordtime = totalsecs - lasttimervalue;
                             int wordlength = currentword.Length;
-                            TextPerfomance.AverageWPM = (int)Math.Round((double)((double)wordlength / ConfigurationRequest.GetDictonary().AverageLettersInWords) * (1 / (double)wordtime) * 60);
+                            TextPerfomance.AverageWPM = (int)Math.Round((double)((double)wordlength / ConfigurationRequest.GetDictonary().AverageLettersInWords) * (1 / TextPerfomance.wordtime) * 60);
                             lAverageWPM.Content = $"В среднем слов в минуту: {TextPerfomance.AverageWPM}";
                         }
                         lasttimervalue = totalsecs;
+                        TextPerfomance.minutes = totalsecs / 60;
                         ++TextPerfomance.currentwrittenwords;
                         lWordAccuracy.Content = $"Аккуратность написания слов: {TextPerfomance.WordAccuracy}%";
                         lTextPP.Content = $"Показатель производительности: {TextPerfomance.TextPerfomancePoints}";
@@ -416,24 +415,20 @@ namespace KeyboardMaster
                         if (isIdealWord)
                         {
                             lIdealWords.Content = $"Идеально написанные слова: {++TextPerfomance.IdealWords}";
-                            if (isStreak)
-                            {
-                                lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
-                            }
-                            else
-                            {
-                                isStreak = true;
-                            }
+                            lIdealWordStreak.Content = $"Серия идеально написанных слов: {++currentstreak}";
                         }
                         else if (tInput.Text != currentword)
                         {
                             lWrongWords.Content = $"Завершенные слова с опечатками: {++TextPerfomance.WrongWords}";
-                            isStreak = false;
-                            currentstreak = 0;
+                        }
+                        if (!isIdealWord || tInput.Text != currentword)
+                        {
                             if (currentstreak > maxstreak)
                             {
                                 maxstreak = currentstreak;
                             }
+                            currentstreak = 0;
+                            lIdealWordStreak.Content = $"Серия идеально написанных слов: {currentstreak}";
                         }
                         if (tInput.Text == currentword)
                         {
@@ -443,6 +438,7 @@ namespace KeyboardMaster
                             lAverageWPM.Content = $"В среднем слов в минуту: {TextPerfomance.AverageWPM}";
                         }
                         lasttimervalue = totalsecs;
+                        TextPerfomance.minutes = totalsecs / 60;
                         ++TextPerfomance.currentwrittenwords;
                         lWordAccuracy.Content = $"Аккуратность написания слов: {TextPerfomance.WordAccuracy}%";
                         lTextPP.Content = $"Показатель производительности: {TextPerfomance.TextPerfomancePoints}";
@@ -495,7 +491,7 @@ namespace KeyboardMaster
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lWelcome.Content = $"Подключаемся к серверу...";
-            _ = AuthUser(Environment.UserName, out m3md2.StaticVariables.AuthCookie);
+            StaticVariables.AuthCookie = await AuthUser(Environment.UserName);
             await Network.ConfigureConnection();
             lWelcome.Content = $"{Parser.GetWelcomeLabel(Parser.GetTimeDescription(DateTime.Now))}, {Environment.UserName}!";
         }
@@ -514,8 +510,19 @@ namespace KeyboardMaster
 
         private void mPerfomanceRanking_Click(object sender, RoutedEventArgs e)
         {
-            PerfomanceRanking perfomanceRanking = new PerfomanceRanking();
+            PerfomanceRanking perfomanceRanking = new PerfomanceRanking()
+            {
+                ShowActivated = true
+            };
             perfomanceRanking.Show();
+        }
+
+        TrainingMode trainingMode = default;
+
+        private void mTrainingMode_Click(object sender, RoutedEventArgs e)
+        {
+            trainingMode = new TrainingMode();
+            trainingMode.Show();
         }
 
         private void media3_MediaEnded(object sender, RoutedEventArgs e)
@@ -524,9 +531,10 @@ namespace KeyboardMaster
             media3.Play();
         }
 
-        public static Client AuthUser(string username, out Cookie cookie) // метод для авторизации на сервере
+        public static async Task<Cookie> AuthUser(string username) // метод для авторизации на сервере
         {
-            Client returnproduct = default;
+            Client returnproduct;
+            Cookie cookie;
             try
             {
                 CookieContainer cookies = new CookieContainer(); // авторизуем, отправляя Post запрос с нужными параметрами
@@ -541,12 +549,12 @@ namespace KeyboardMaster
                 client.DefaultRequestHeaders.Accept.ParseAdd("application/json");
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36");
                 string json = JsonConvert.SerializeObject(username);
-                HttpResponseMessage response = client.PostAsync($"auth", new StringContent(json, Encoding.UTF8, "application/json")).GetAwaiter().GetResult();
+                HttpResponseMessage response = await client.PostAsync($"auth", new StringContent(json, Encoding.UTF8, "application/json"));
                 response.EnsureSuccessStatusCode();
-                returnproduct = response.Content.ReadAsAsync<Client>().GetAwaiter().GetResult();
+                returnproduct = await response.Content.ReadAsAsync<Client>();
                 try // Получаем куки
                 {
-                    Uri uri = new Uri($"{m3md2.StaticVariables.BaseServerAddress}auth");
+                    Uri uri = new Uri($"{StaticVariables.BaseServerAddress}auth");
                     var collection = cookies.GetCookies(uri);
                     cookie = collection[".AspNetCore.Cookies"];
                 }
@@ -561,7 +569,16 @@ namespace KeyboardMaster
                 ExceptionHandler.RegisterNew(ex);
                 cookie = default;
             }
-            return returnproduct;
+            return cookie;
+        }
+
+        private void mTimer_Click(object sender, RoutedEventArgs e)
+        {
+            DialogBox dialogBox = new DialogBox()
+            {
+                ShowActivated = true
+            };
+            dialogBox.Show();
         }
     }
 }

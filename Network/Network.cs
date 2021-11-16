@@ -17,7 +17,8 @@ namespace KeyboardMaster
             options.UseDefaultCredentials = true;
             options.Headers.Add("User-Agent", "Mozilla/5.0");
             options.Cookies.Add(m3md2.StaticVariables.AuthCookie);
-        }).Build();
+        }).WithAutomaticReconnect()
+            .Build();
 
         public static List<Score> scores = new List<Score>();
 
@@ -57,7 +58,11 @@ namespace KeyboardMaster
                         IdealWords = TextPerfomance.IdealWords,
                         IncorrectChars = TextPerfomance.IncorrectChars,
                         WordsPerMinute = TextPerfomance.WordsPerMinute,
-                        WrongWords = TextPerfomance.WrongWords
+                        WrongWords = TextPerfomance.WrongWords,
+                        AverageWPM = TextPerfomance.AverageWPM,
+                        StreakIdealWords = TextPerfomance.StreakIdealWords,
+                        WordAccuracy = TextPerfomance.WordAccuracy,
+                        TextPerfomancePoints = TextPerfomance.TextPerfomancePoints
                     },
                     corePerfomance = new nCorePerfomance()
                     {
@@ -66,7 +71,9 @@ namespace KeyboardMaster
                         AverageDelay = CorePerfomance.AverageDelay,
                         BestCPM = CorePerfomance.BestCPM,
                         BestLatency = CorePerfomance.BestLatency,
-                        Latency = CorePerfomance.Latency
+                        Latency = CorePerfomance.Latency,
+                        printingUniformity = CorePerfomance.printingUniformity,
+                        CorePerfomancePoints = CorePerfomance.CorePerfomancePoints
                     }
                 };
                 await ScoreConnection.InvokeAsync("SubmitScore", score);

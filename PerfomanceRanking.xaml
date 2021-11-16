@@ -3,9 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:KeyboardMaster"
         mc:Ignorable="d"
-        Title="PerfomanceRanking" Height="450" Width="800">
+        Title="Online Perfomance Ranking" Height="450" Width="1000" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -18,6 +17,19 @@
         </Grid.RowDefinitions>
 
         <RichTextBox x:Name="rtbUsernames" Grid.Row="2" IsReadOnly="True">
+            <FlowDocument>
+                <Table>
+                    <TableRowGroup x:Name="trgNames">
+                        <TableRow>
+                            <TableCell>
+                                <Paragraph>
+                                     
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                    </TableRowGroup>
+                </Table>
+            </FlowDocument>
         </RichTextBox>
 
         <RichTextBox x:Name="rtbTextPerfomance" Grid.Column="1" Grid.Row="2" IsReadOnly="True">
@@ -100,6 +112,68 @@
             </FlowDocument>
         </RichTextBox>
         
+        <RichTextBox Grid.Column="2" Grid.Row="1">
+            <FlowDocument>
+                <Table>
+                    <Table.Columns>
+                        <TableColumn/>
+                        <TableColumn/>
+                        <TableColumn/>
+                        <TableColumn/>
+                        <TableColumn/>
+                        <TableColumn/>
+                        <TableColumn/>
+                        <TableColumn/>
+                    </Table.Columns>
+
+                    <TableRowGroup x:Name="trgCorePerfomance">
+                        <TableRow>
+                            <TableCell>
+                                <Paragraph>
+                                    CPM
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell>
+                                <Paragraph>
+                                    BcM
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell>
+                                <Paragraph>
+                                    AcM
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell>
+                                <Paragraph>
+                                    BLt
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell>
+                                <Paragraph>
+                                    Lat
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell>
+                                <Paragraph>
+                                    AdL
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell>
+                                <Paragraph>
+                                    PuF
+                                </Paragraph>
+                            </TableCell>
+                            <TableCell>
+                                <Paragraph>
+                                    Cpp
+                                </Paragraph>
+                            </TableCell>
+                        </TableRow>
+                    </TableRowGroup>
+                </Table>
+            </FlowDocument>
+        </RichTextBox>
+
         <Label Content="TextPerfomance" Grid.Column="1" HorizontalAlignment="Left" FontSize="10.5" VerticalAlignment="Center"/>
         <Label Content="CorePerfomance" Grid.Column="2" HorizontalAlignment="Left" FontSize="10.5" VerticalAlignment="Center"/>
         <Label Content="Username" Grid.Column="0" HorizontalAlignment="Left" FontSize="10.5" VerticalAlignment="Center"/>
