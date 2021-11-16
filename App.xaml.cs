@@ -8,6 +8,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Media;
 using Gma.System.MouseKeyHook;
 
 namespace KeyboardMaster
@@ -19,9 +20,7 @@ namespace KeyboardMaster
     {
         static ICorePerfomance corePerfomance = new CorePerfomanceLogic();
         public static Cookie AuthCookie;
-        public static long best_latency = long.MaxValue;
-        public static int sum = 0;
-        public static int counter = 1;
+        public static bool isTraining = false;
 
         highlightingKeys highlightingKeys = new highlightingKeys();
 
@@ -38,49 +37,57 @@ namespace KeyboardMaster
         private IKeyboardMouseEvents m_globalHook;
         private void GlobalHookKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)//Обработчик собыьтия по вытягиванию нажатых клавиш
         {
-            MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
-
-            if (watch.IsRunning)//Запущен ли секундомер для проверки задержки
+                MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
+            if (!isTraining)//Проверка, идет ли сейчас тренировка
             {
-                watch.Stop();
 
-                corePerfomance.print_delay((int)watch.ElapsedMilliseconds);
-
-                corePerfomance.bestLatency((int)watch.ElapsedMilliseconds);
-
-                CorePerfomanceLogic.sum += (int)watch.ElapsedMilliseconds;
-
-                corePerfomance.avrPrintDelay();
-
-                corePerfomance.printingUniformity((int)watch.ElapsedMilliseconds);
-
-                CorePerfomanceLogic.counter++;
-                CorePerfomanceLogic.lastLatency = (int)watch.ElapsedMilliseconds;
-                CorePerfomance.Latency = watch.ElapsedMilliseconds;
-                string output = $"Задержка печати: {watch.ElapsedMilliseconds}ms";
-                if (best_latency>watch.ElapsedMilliseconds && watch.ElapsedMilliseconds!=0) //Лучшая задержка
+                if (watch.IsRunning)//Запущен ли секундомер для проверки задержки
                 {
-                    best_latency = watch.ElapsedMilliseconds;
-                    CorePerfomance.BestLatency = best_latency;
-                    string latency_record = $"Лучшая задержка: {best_latency}ms";
-                    main.best_latency.Content = latency_record;
+                    watch.Stop();
+
+                    corePerfomance.print_delay((int)watch.ElapsedMilliseconds);
+
+                    corePerfomance.bestLatency((int)watch.ElapsedMilliseconds);
+
+                    CorePerfomanceLogic.sum += (int)watch.ElapsedMilliseconds;
+
+                    corePerfomance.avrPrintDelay();
+
+                    corePerfomance.printingUniformity((int)watch.ElapsedMilliseconds);
+
+
+                    CorePerfomanceLogic.counter++;
+                    CorePerfomanceLogic.lastLatency = (int)watch.ElapsedMilliseconds;
+                    CorePerfomance.Latency = watch.ElapsedMilliseconds;
+                    watch.Reset();
+                    watch.Start();
                 }
-                main.print_delay.Content = output;
-                sum += (int)watch.ElapsedMilliseconds;
-                string avr_delay_output = $"Средняя задержка: {sum/counter}ms";
-                CorePerfomance.AverageDelay = sum / counter;
-                main.avr_print_delay.Content = avr_delay_output;
-                counter++;
-                watch.Reset();
-                watch.Start();
+                else
+                {
+                    watch.Start();
+                }
+                charsPerMinute.chars.Add(e.KeyData.ToString());
+                highlightingKeys.keyPressed(e.KeyData.ToString());
             }
             else
             {
-                watch.Start();
+                if (e.KeyCode.ToString() == TrainingModeLogic.currentChar.ToString())
+                {
+                    TrainingModeLogic.verification = true;
+                    TrainingModeLogic.counter++;
+                    TrainingModeLogic trainingModeLogic = new TrainingModeLogic(main.trainingMode);
+                    trainingModeLogic.StartGenerating();
+                }
+                else
+                {
+                    TrainingModeLogic.verification = false;
+                    TrainingModeLogic trainingModeLogic = new TrainingModeLogic(main.trainingMode);
+                    TrainingModeLogic.timer.Stop();
+                    trainingModeLogic.timer_tick(new object(), new EventArgs());
+                }
+
             }
-            charsPerMinute.chars.Add( e.KeyData.ToString());
-            highlightingKeys.keyPressed(e.KeyData.ToString());
-        }
+            }
         private void GlobalHookKeyUp(object sender, System.Windows.Forms.KeyEventArgs e)//Обработчик собыьтия по вытягиванию нажатых клавиш
         {
             highlightingKeys.keyUpped(e.KeyData.ToString());

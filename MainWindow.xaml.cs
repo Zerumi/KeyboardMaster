@@ -504,17 +504,18 @@ namespace KeyboardMaster
         {
             MessageBox.Show($"Keyboard Master by CrutchGroup\nMade for Samara IT Hackaton by IT Cube 15-16/11/2021\nVersion 1.0 stable\nKeyboardMaster-server v.1.0 stable\nMade by Zerumi & PizhikCoder (Discord: Zerumi#4666 / PizhikCoder#4565)\nGitHub: https://github.com/Zerumi \nGitHub: https://github.com/PizhikCoder");
         }
+        public TrainingMode trainingMode = default;
+
+        private void mTrainingMode_Click(object sender, RoutedEventArgs e)
+        {
+            trainingMode = new TrainingMode();
+            trainingMode.Show();
+        }
 
         private void mPerfomanceRanking_Click(object sender, RoutedEventArgs e)
         {
             PerfomanceRanking perfomanceRanking = new PerfomanceRanking();
             perfomanceRanking.Show();
-        }
-
-        private void mTrainingMode_Click(object sender, RoutedEventArgs e)
-        {
-            TrainingMode trainingMode = new TrainingMode();
-            trainingMode.Show();
         }
 
         private void media3_MediaEnded(object sender, RoutedEventArgs e)
