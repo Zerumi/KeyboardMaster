@@ -71,6 +71,7 @@ namespace KeyboardMaster
             {
                 best_latency = ElapsedMilliseconds;
                 string latency_record = $"Лучшая задержка: {best_latency}ms";
+                CorePerfomance.BestLatency = best_latency;
                 main.best_latency.Content = latency_record;
             }
         }
@@ -108,6 +109,7 @@ namespace KeyboardMaster
             MainWindow main = (MainWindow)System.Windows.Application.Current.MainWindow;
             string avr_delay_output = $"Средняя задержка: {sum / counter}ms";
             main.avr_print_delay.Content = avr_delay_output;
+            CorePerfomance.AverageDelay = sum / counter;
         }
         #endregion
     }
