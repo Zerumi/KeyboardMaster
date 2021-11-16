@@ -49,11 +49,11 @@ namespace KeyboardMaster
                     key = "LMenu";
                 }
                 rect = m3md2.WinHelper.FindChild<Rectangle>(main.gKeyboard, key);
-                rect.Fill = Brushes.WhiteSmoke;
+                rect.Fill = null;
             }
             else
             {
-                rect.Fill = Brushes.WhiteSmoke;
+                rect.Fill = null;
             }
         }
     }

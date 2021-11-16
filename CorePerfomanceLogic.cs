@@ -21,6 +21,7 @@ namespace KeyboardMaster
             CorePerfomance.CharsPerMinute = count * 60;
             string output = $"Символов в минуту: {count * 60}";//Строка выходных данных о количестве символов в минуту
             main.CPM.Content = output;
+            CorePerfomance.CharsPerMinute = count * 60;
         }
         public void ACPM(int count)
         {
@@ -30,6 +31,7 @@ namespace KeyboardMaster
                 sumCh += count * 60;
                 string ACMP_output = $"Среднее число символов в минуту: {sumCh / counterCh}";
                 main.ACPM.Content = ACMP_output;
+                CorePerfomance.AverageCPM = sumCh / counterCh;
                 counterCh++;
             }
         }
@@ -42,6 +44,7 @@ namespace KeyboardMaster
                 best = count;
                 string bestCPM_output = $"Лучшее число символов в минуту: {count * 60}";
                 main.best_CPM.Content = bestCPM_output;
+                CorePerfomance.BestCPM = count * 60;
             }
         }
         #endregion

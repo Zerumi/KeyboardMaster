@@ -38,6 +38,7 @@ namespace KeyboardMaster
             //Путь к гиф
             media.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d1.gif");
             media2.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d2.gif");
+            media3.Source = new Uri(Environment.CurrentDirectory + "\\Attachments\\d2.gif");
             //Метод инициализации таймера
             Loading();
             charsPerMinute charsPerMinute = new charsPerMinute();
@@ -58,6 +59,7 @@ namespace KeyboardMaster
             Menu.Visibility = Visibility.Visible;
             lWelcome.Visibility = Visibility.Visible;
             lTime.Visibility = Visibility.Visible;
+            media3.Visibility = Visibility.Visible;
 
             //Останавливаем таймер
             timer1.Stop();
@@ -421,6 +423,12 @@ namespace KeyboardMaster
         private void mManage_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void media3_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            media3.Position = new TimeSpan(0, 0, 1);
+            media3.Play();
         }
     }
 }

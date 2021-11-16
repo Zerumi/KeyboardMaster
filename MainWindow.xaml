@@ -18,6 +18,10 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="title_Animation" Visibility="Visible" Grid.ColumnSpan="2" Grid.RowSpan="3">
+            <Grid>
+                <MediaElement x:Name="media3" Visibility="Hidden" Opacity="0.4" UnloadedBehavior="Manual" MediaEnded="media3_MediaEnded"  Stretch="Fill" Margin="0">
+                </MediaElement>
+            </Grid>
 
             <MediaElement x:Name="media2" Visibility="Hidden" Opacity="0.4" UnloadedBehavior="Manual"  Stretch="Fill" Margin="0">
                 <MediaElement.Triggers>
@@ -67,7 +71,7 @@
             </Label>
         </Grid>
 
-        <Grid x:Name="gKeyboard" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="2" Grid.Column="0">
+        <Grid x:Name="gKeyboard" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="2" Grid.Column="0" Opacity="0">
             <Rectangle x:Name="Escape" Stroke="Black" Margin="10,10,0,0" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Top"/>
             <Rectangle x:Name="F1" Stroke="Black" Margin="80,10,0,0" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Top"/>
             <Rectangle x:Name="F2" Stroke="Black" Margin="115,10,0,0" HorizontalAlignment="Left" Width="30" Height="30" VerticalAlignment="Top"/>
@@ -276,9 +280,23 @@
             <Label Content="-" HorizontalAlignment="Left" Margin="740,45,0,0" VerticalAlignment="Top" Height="30" Width="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label Content="+" HorizontalAlignment="Left" Margin="740,80,0,0" VerticalAlignment="Top" Height="65" Width="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             <Label Content="Rn" HorizontalAlignment="Left" Margin="740,150,0,0" VerticalAlignment="Top" Height="65" Width="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MediaElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard AutoReverse="False">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="1"
+                                             BeginTime="0:0:4.8"
+                                             Duration="0:0:0.4"
+                                             >
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
         </Grid>
 
-        <Grid x:Name="gCorePerfomance" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="2" Grid.Column="1">
+        <Grid x:Name="gCorePerfomance" Opacity="0" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="2" Grid.Column="1">
             <Label x:Name="best_CPM" Content="Лучшее число символов в минуту: 0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="best_latency" Content="Лушая задержка: 0ms" HorizontalAlignment="Center" Margin="0,26,0,0" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="CPM" Content="Символов в минуту: 0" HorizontalAlignment="Center" Margin="0,52,0,0" VerticalAlignment="Top" Width="358"/>
@@ -287,9 +305,23 @@
             <Label x:Name="avr_print_delay" Content="Средняя задержка: 0ms" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top" Width="358"/>
             <Label x:Name="printing_uniformity" Content="Равномерность печати: 0%" HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="358"/>
             <Label Content="CorePerfomance: 1" HorizontalAlignment="Center" Margin="0,182,0,0" VerticalAlignment="Top" Width="358"/>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MediaElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard AutoReverse="False">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="1"
+                                             BeginTime="0:0:4.8"
+                                             Duration="0:0:0.4"
+                                             >
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
         </Grid>
 
-        <Grid x:Name="gTextInput" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="1" Grid.Column="0">
+        <Grid x:Name="gTextInput" Opacity="0" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="1" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -302,9 +334,23 @@
             <TextBox x:Name="tInput" HorizontalAlignment="Stretch" Margin="10,257,10,10" FontSize="15" TextWrapping="NoWrap" VerticalAlignment="Stretch" Grid.ColumnSpan="2" TextChanged="tInput_TextChanged" GotFocus="tInput_GotFocus"/>
 
             <Label x:Name="lTimer" Content="01:00" HorizontalAlignment="Left" Margin="10,226,0,0" VerticalAlignment="Top" Width="150"/>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MediaElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard AutoReverse="False">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="1"
+                                             BeginTime="0:0:4.8"
+                                             Duration="0:0:0.4"
+                                             >
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
         </Grid>
 
-        <Grid x:Name="gTextPerfomance" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="1" Grid.Column="1">
+        <Grid x:Name="gTextPerfomance" Opacity="0" Visibility="Hidden" Margin="10,10,10,10" Grid.Row="1" Grid.Column="1">
             <Label x:Name="lCorrectChars" Content="Правильно напечатанных символов: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358"/>
             <Label x:Name="lIncorrectChars" Content="Неправильно напечатанных символов: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,26,0,0"/>
             <Label x:Name="lIdealWords" Content="Идеально написанные слова: 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,52,0,0"/>
@@ -316,6 +362,20 @@
             <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,208,0,0"/>
             <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,234,0,0"/>
             <Label Content="TextPerfomance: 1" VerticalAlignment="Top" HorizontalAlignment="Center" Width="358" Margin="0,260,0,0"/>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MediaElement.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard AutoReverse="False">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="1"
+                                             BeginTime="0:0:4.8"
+                                             Duration="0:0:0.4"
+                                             >
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
         </Grid>
 
         <Menu x:Name="Menu" Visibility="Visible" Grid.ColumnSpan="2" Grid.Row="0">
