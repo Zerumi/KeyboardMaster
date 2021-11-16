@@ -1,4 +1,5 @@
-﻿using System;
+﻿using m3md2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace KeyboardMaster
     {
         public string[] Words { get; set; }
         public int AverageLettersInWords => 5;
+        public LanguageDictonary LanguageDictonary => LanguageDictonary.EN;
 
         public EnDictonary()
         {

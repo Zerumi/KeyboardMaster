@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using m3md2;
 
 namespace KeyboardMaster
 {
@@ -10,6 +11,7 @@ namespace KeyboardMaster
     {
         public string[] Words { get; set; }
         public int AverageLettersInWords => 5;
+        public LanguageDictonary LanguageDictonary => LanguageDictonary.RU;
 
         public RuDictonary()
         {

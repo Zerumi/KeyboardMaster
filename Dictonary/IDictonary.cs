@@ -8,6 +8,7 @@ namespace KeyboardMaster
 {
     interface IDictonary
     {
+        public m3md2.LanguageDictonary LanguageDictonary { get; }
         public string[] Words { get; set; }
         public int AverageLettersInWords { get; }
     }
